@@ -1,0 +1,510 @@
+<title>Anaïs Gaillot Photographie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Nunito+Sans:wght@300;400;600;700&display=swap');
+
+  :root {
+    --ink: #4A3B33;
+    --ink-soft: #8A7A6E;
+    --ink-faint: #B5A79A;
+
+    --paper: #FCF6EC;
+    --paper-raised: #FFFFFF;
+    --bg-tint-a: #FCEEEA;
+    --bg-tint-b: #F1EEF7;
+
+    --coral: #E7A493;
+    --coral-solid: #D98F79;
+    --coral-deep: #B8654C;
+    --lavender: #D8CBEA;
+    --lavender-solid: #AE97CC;
+    --lavender-deep: #7C64A0;
+    --sage: #D3DEC9;
+    --sage-solid: #96AC87;
+    --sage-deep: #5E7350;
+    --gold: #D9B98A;
+    --gold-deep: #A9843F;
+
+    --line: rgba(74, 59, 51, 0.13);
+    --shadow: rgba(74, 59, 51, 0.14);
+
+    --bg: var(--paper);
+    --bg-raised: var(--paper-raised);
+    --text: var(--ink);
+    --text-soft: var(--ink-soft);
+    --text-faint: var(--ink-faint);
+    --on-accent: #FFFFFF;
+    --border: var(--line);
+
+    --font-script: 'Parisienne', cursive;
+    --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-body: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2.5rem); }
+
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 500; text-wrap: balance; margin: 0; }
+  a { color: inherit; }
+  button { font-family: inherit; }
+  svg.icon-line { width: 20px; height: 20px; flex-shrink: 0; }
+
+  .eyebrow-pill {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--lavender);
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+  }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1rem clamp(1.25rem, 4vw, 2.5rem);
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand { font-family: var(--font-script); font-size: 1.9rem; color: var(--text); line-height: 1; }
+  .nav-links { display: flex; align-items: center; gap: clamp(1rem, 3vw, 2rem); list-style: none; margin: 0; padding: 0; font-size: 0.92rem; }
+  .nav-links a { text-decoration: none; opacity: 0.78; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    border: 1px solid var(--coral-deep);
+    color: var(--coral-deep);
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; padding: clamp(4rem, 12vw, 6.5rem) clamp(1.25rem, 4vw, 2.5rem) clamp(3rem, 8vw, 4.5rem); overflow: hidden; }
+  .hero-inner { position: relative; max-width: 1120px; margin: 0 auto; }
+  .wash {
+    position: absolute;
+    border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+    filter: blur(38px);
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero .script-lead {
+    position: relative;
+    font-family: var(--font-script);
+    font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+    color: var(--coral-deep);
+    display: inline-block;
+    margin-bottom: 0.4rem;
+  }
+  .hero h1 { position: relative; font-size: clamp(2.4rem, 5.6vw, 4.4rem); font-weight: 400; line-height: 1.08; max-width: 16ch; color: var(--text); }
+  .hero p.lede { position: relative; margin-top: 1.4rem; max-width: 46ch; font-size: clamp(1.02rem, 1.5vw, 1.15rem); color: var(--text-soft); }
+  .hero-actions { position: relative; display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 2.3rem; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 1.6rem; border-radius: 999px; font-size: 0.92rem;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-solid { background: var(--coral-deep); color: var(--on-accent); }
+  .btn-ghost { border-color: var(--lavender-deep); color: var(--lavender-deep); }
+
+  .exif-strip {
+    position: relative;
+    margin-top: clamp(2.6rem, 7vw, 3.6rem);
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem;
+    font-family: var(--font-body);
+    font-size: 0.76rem; font-weight: 600; letter-spacing: 0.06em;
+    color: var(--text-faint);
+  }
+
+  /* ---------- Sections ---------- */
+  section { padding: clamp(3.5rem, 9vw, 5.5rem) 0; }
+  .section-head { margin-bottom: clamp(2rem, 5vw, 3rem); }
+  .section-head h2 { font-size: clamp(1.9rem, 3.6vw, 2.5rem); margin-top: 0.5rem; }
+  .section-head p { color: var(--text-soft); max-width: 56ch; margin-top: 0.7rem; }
+
+  .tint-a { background: var(--bg-tint-a); }
+  .tint-b { background: var(--bg-tint-b); }
+
+  /* ---------- Approche ---------- */
+  .approche-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(2rem, 6vw, 4rem); align-items: start; }
+  .approche-grid p.body-p { color: var(--text-soft); font-size: 1.05rem; max-width: 52ch; }
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+  .stat { background: var(--bg-raised); border-radius: 14px; padding: 1rem 1.1rem; box-shadow: 0 10px 24px -20px var(--shadow); }
+  .stat .n { font-family: var(--font-display); font-size: 1.9rem; color: var(--coral-deep); font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 0.8rem; color: var(--text-faint); margin-top: 0.2rem; }
+  @media (max-width: 720px) { .approche-grid { grid-template-columns: 1fr; } .stat-row { grid-template-columns: 1fr 1fr; } }
+
+  /* ---------- Portfolio (planche-contact) ---------- */
+  .sheet { background: var(--bg-raised); border-radius: 20px; padding: 1.75rem clamp(1rem, 3vw, 2rem); position: relative; box-shadow: 0 14px 30px -24px var(--shadow); }
+  .sprockets { display: flex; justify-content: space-between; padding: 0 0.25rem 1.1rem; }
+  .sprockets span { width: 8px; height: 8px; border-radius: 50%; background: var(--coral); }
+  .frame-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+  .frame { position: relative; aspect-ratio: 4/5; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 0.65rem; color: #FFFFFF; }
+  .frame .tone { position: absolute; inset: 0; }
+  .frame .icon { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); width: 32px; height: 32px; opacity: 0.55; }
+  .frame .meta { position: relative; display: flex; justify-content: space-between; font-family: var(--font-body); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.03em; }
+  @media (max-width: 720px) { .frame-grid { grid-template-columns: repeat(2, 1fr); } }
+  .sheet-caption { text-align: center; font-size: 0.8rem; color: var(--text-faint); margin-top: 1.2rem; }
+
+  /* ---------- Tarifs ---------- */
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .plan {
+    position: relative;
+    border-radius: 22px;
+    padding: 2rem 1.6rem 2.1rem;
+    display: flex; flex-direction: column;
+    background: var(--bg-raised);
+    border: 1.5px solid var(--plan-color, var(--coral));
+  }
+  .plan[data-tone="coral"] { --plan-color: var(--coral); --plan-solid: var(--coral-solid); --plan-deep: var(--coral-deep); }
+  .plan[data-tone="lavender"] { --plan-color: var(--lavender); --plan-solid: var(--lavender-solid); --plan-deep: var(--lavender-deep); }
+  .plan[data-tone="sage"] { --plan-color: var(--sage); --plan-solid: var(--sage-solid); --plan-deep: var(--sage-deep); }
+  .plan .badge {
+    position: absolute; top: -18px; right: 22px;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: var(--plan-solid);
+    color: #fff; font-family: var(--font-body); font-weight: 700; font-size: 0.68rem;
+    display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.15;
+    box-shadow: 0 8px 16px -8px var(--shadow);
+  }
+  .plan .tag {
+    display: inline-block; align-self: flex-start;
+    font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #fff; background: var(--plan-solid);
+    padding: 0.4rem 0.9rem; border-radius: 999px;
+  }
+  .plan h3 { font-size: 1.4rem; margin-top: 0.8rem; color: var(--text); }
+  .plan .price { font-family: var(--font-script); font-size: 3rem; margin-top: 0.3rem; color: var(--plan-deep); line-height: 1; }
+  .plan .price small { font-size: 0.85rem; color: var(--text-faint); font-family: var(--font-body); margin-left: 0.3rem; }
+  .plan .rows { list-style: none; padding: 0; margin: 1.3rem 0 0; display: flex; flex-direction: column; }
+  .plan .rows li { display: flex; align-items: center; gap: 0.7rem; padding: 0.6rem 0; border-bottom: 1px dashed var(--border); font-size: 0.9rem; color: var(--text-soft); }
+  .plan .rows li:last-child { border-bottom: none; }
+  .plan .rows li .icon-line { color: var(--plan-deep); }
+  .plan .rows li b { color: var(--text); font-weight: 700; }
+  .plan .ideal { margin-top: 1.1rem; font-size: 0.85rem; color: var(--text-soft); }
+  .plan .ideal .eyebrow-pill { background: var(--plan-color); margin-bottom: 0.5rem; }
+  .plan .btn { margin-top: 1.4rem; justify-content: center; }
+  @media (max-width: 860px) { .plans { grid-template-columns: 1fr; } }
+
+  .know-box {
+    margin-top: 2.25rem;
+    background: var(--bg-raised);
+    border: 1.5px solid var(--gold);
+    border-radius: 20px;
+    padding: 1.75rem clamp(1.25rem, 4vw, 2.25rem);
+  }
+  .know-box h3 { font-family: var(--font-script); font-size: 1.6rem; color: var(--gold-deep); }
+  .know-box ul { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-direction: column; gap: 0.65rem; }
+  .know-box li { display: flex; gap: 0.65rem; font-size: 0.95rem; color: var(--text-soft); align-items: flex-start; }
+  .know-box li .icon-line { color: var(--gold-deep); margin-top: 0.1rem; }
+  .know-box .signoff { margin-top: 1.4rem; font-family: var(--font-script); font-size: 1.3rem; color: var(--coral-deep); }
+
+  /* ---------- Temoignages ---------- */
+  .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .quote { background: var(--bg-raised); border-radius: 18px; padding: 1.6rem 1.5rem; box-shadow: 0 10px 24px -20px var(--shadow); }
+  .quote .mark { font-family: var(--font-script); font-size: 2.4rem; color: var(--coral-deep); line-height: 0.7; display: block; }
+  .quote p { font-size: 1.0rem; color: var(--text); margin-top: 0.7rem; }
+  .quote .who { margin-top: 1rem; font-size: 0.85rem; color: var(--text-faint); }
+  @media (max-width: 860px) { .quotes { grid-template-columns: 1fr; } }
+
+  /* ---------- Contact ---------- */
+  .contact-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(2rem, 6vw, 4rem); }
+  form { display: grid; gap: 1rem; }
+  .field { display: grid; gap: 0.4rem; }
+  .field label { font-size: 0.82rem; color: var(--text-faint); }
+  .field input, .field select, .field textarea {
+    font-family: var(--font-body); font-size: 0.95rem; padding: 0.7rem 0.9rem;
+    background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; color: var(--text);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--coral-deep); outline-offset: 1px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
+  .contact-info { display: flex; flex-direction: column; gap: 1.4rem; }
+  .contact-info .item .l { font-size: 0.78rem; color: var(--text-faint); }
+  .contact-info .item .v { font-size: 1.05rem; margin-top: 0.15rem; }
+  .contact-info .item .v a { text-decoration: none; border-bottom: 1px solid var(--border); }
+  .form-note { font-size: 0.82rem; color: var(--text-faint); }
+  @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--bg-raised); padding: 2.3rem clamp(1.25rem, 4vw, 2.5rem); border-top: 1px solid var(--border); }
+  .footer-row { max-width: 1120px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.85rem; color: var(--text-soft); }
+  .footer-row .brand { font-size: 1.3rem; }
+</style>
+
+<nav class="nav">
+  <div class="brand">Anaïs Gaillot</div>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#forfaits">Forfaits</a></li>
+    <li><a href="#temoignages">Témoignages</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Réserver une séance</a>
+</nav>
+
+<header class="hero">
+  <div class="wash" style="width:420px; height:320px; top:-60px; right:-60px; background: var(--coral);"></div>
+  <div class="wash" style="width:360px; height:300px; bottom:-80px; left:-60px; background: var(--lavender);"></div>
+  <div class="hero-inner">
+    <span class="script-lead">Anaïs Gaillot</span><br>
+    <span class="eyebrow-pill">Portraits · Événements · Lumière douce</span>
+    <h1 style="margin-top:0.9rem;">Des instants tout en douceur.</h1>
+    <p class="lede">Photographie de portrait et d'événement en tons pastel — capturée au Fujifilm X-T50 et à l'objectif 56 mm f/1.2, pour des images douces, intimes, à fleur de peau.</p>
+    <div class="hero-actions">
+      <a class="btn btn-solid" href="#portfolio">Voir le portfolio</a>
+      <a class="btn btn-ghost" href="#contact">Demander un devis</a>
+    </div>
+    <div class="exif-strip">
+      <span>FUJIFILM X-T50</span><span>56MM F/1.2</span><span>TEINTES PASTEL</span><span>DISPONIBLE PARTOUT AU QUÉBEC</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="tint-b">
+    <div class="wrap approche-grid">
+      <div>
+        <span class="eyebrow-pill">L'approche</span>
+        <h2 style="margin-top:0.6rem;">Une lumière douce, un regard sincère</h2>
+        <p class="body-p">Chaque séance commence par une conversation, pas par un plan de poses. La patine pastel n'est pas un filtre appliqué après coup : c'est une façon de voir, pensée pour des images tendres que vous garderez longtemps.</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="n">2021</div><div class="l">Premières séances</div></div>
+        <div class="stat"><div class="n">90+</div><div class="l">Client·es accompagné·es</div></div>
+        <div class="stat"><div class="n">48h</div><div class="l">Galerie livrée</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow-pill">Portfolio</span>
+        <h2>Une sélection de séances récentes</h2>
+        <p>Portraits, couples, événements — chaque planche-contact ci-dessous accueillera vos plus belles images.</p>
+      </div>
+      <div class="sheet">
+        <div class="sprockets"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="frame-grid" id="frameGrid"></div>
+        <div class="sprockets"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+      <p class="sheet-caption">Emplacements pour vos photos — remplacez chaque planche par vos visuels avant publication.</p>
+    </div>
+  </section>
+
+  <section id="forfaits" class="tint-a">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow-pill">Mes prestations</span>
+        <h2>Trois formules pour s'adapter à vos envies</h2>
+        <p>Pour vos souvenirs — durée, nombre de photos et livraison varient selon la formule choisie.</p>
+      </div>
+      <div class="plans">
+
+        <div class="plan" data-tone="coral">
+          <span class="tag">Formule 1</span>
+          <h3>Séance express</h3>
+          <div class="price">180 $ <small>CAD</small></div>
+          <ul class="rows">
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Durée : <b>jusqu'à 45 minutes</b></li>
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6.5" width="19" height="13" rx="2.5"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6.5l1.3-2h5.4l1.3 2"/></svg> Photos : <b>15 incluses</b></li>
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17.5A4 4 0 018 9.7 5 5 0 0117.8 11 3.6 3.6 0 0117 17.5"/><path d="M12 12v6m0-6l-2.2 2.2M12 12l2.2 2.2"/></svg> Livraison : <b>galerie privée HD</b></li>
+          </ul>
+          <div class="ideal">
+            <span class="eyebrow-pill">Idéal pour</span>
+            <p style="margin:0.5rem 0 0;">Séance express, couple, portrait, réseaux sociaux…</p>
+          </div>
+          <a class="btn btn-ghost" style="border:1px solid var(--coral-deep); color:var(--coral-deep);" href="#contact">Choisir cette formule</a>
+        </div>
+
+        <div class="plan" data-tone="lavender">
+          <span class="badge">COUP<br>DE ♡</span>
+          <span class="tag">Formule 2</span>
+          <h3>Séance complète</h3>
+          <div class="price">230 $ <small>CAD</small></div>
+          <ul class="rows">
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Durée : <b>jusqu'à 1h15</b></li>
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6.5" width="19" height="13" rx="2.5"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6.5l1.3-2h5.4l1.3 2"/></svg> Photos : <b>30 incluses</b></li>
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17.5A4 4 0 018 9.7 5 5 0 0117.8 11 3.6 3.6 0 0117 17.5"/><path d="M12 12v6m0-6l-2.2 2.2M12 12l2.2 2.2"/></svg> Livraison : <b>galerie privée HD</b></li>
+          </ul>
+          <div class="ideal">
+            <span class="eyebrow-pill">Idéal pour</span>
+            <p style="margin:0.5rem 0 0;">Séance complète, famille, grossesse, lifestyle…</p>
+          </div>
+          <a class="btn btn-solid" style="background:var(--lavender-deep);" href="#contact">Choisir cette formule</a>
+        </div>
+
+        <div class="plan" data-tone="sage">
+          <span class="tag">Formule 3</span>
+          <h3>Grand jour</h3>
+          <div class="price">300 $ <small>CAD</small></div>
+          <ul class="rows">
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Durée : <b>jusqu'à 1h30</b></li>
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6.5" width="19" height="13" rx="2.5"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6.5l1.3-2h5.4l1.3 2"/></svg> Photos : <b>50 minimum</b></li>
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17.5A4 4 0 018 9.7 5 5 0 0117.8 11 3.6 3.6 0 0117 17.5"/><path d="M12 12v6m0-6l-2.2 2.2M12 12l2.2 2.2"/></svg> Livraison : <b>galerie privée HD</b></li>
+          </ul>
+          <div class="ideal">
+            <span class="eyebrow-pill">Idéal pour</span>
+            <p style="margin:0.5rem 0 0;">Ne rien manquer, vos plus beaux souvenirs.</p>
+          </div>
+          <a class="btn btn-ghost" style="border:1px solid var(--sage-deep); color:var(--sage-deep);" href="#contact">Choisir cette formule</a>
+        </div>
+
+      </div>
+
+      <div class="know-box">
+        <h3>Bon à savoir</h3>
+        <ul>
+          <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7.5-4.6-9.8-9A5.4 5.4 0 0112 6.5 5.4 5.4 0 0121.8 12c-2.3 4.4-9.8 9-9.8 9z"/></svg> Toutes les séances sont personnalisées selon vos envies.</li>
+          <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7.5-4.6-9.8-9A5.4 5.4 0 0112 6.5 5.4 5.4 0 0121.8 12c-2.3 4.4-9.8 9-9.8 9z"/></svg> Un acompte est demandé pour réserver votre date.</li>
+          <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7.5-4.6-9.8-9A5.4 5.4 0 0112 6.5 5.4 5.4 0 0121.8 12c-2.3 4.4-9.8 9-9.8 9z"/></svg> Paiement par virement Interac ou autre méthode convenue ensemble.</li>
+          <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-6-6.1-6-10.5A6 6 0 0118 10.5C18 14.9 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.1"/></svg> Déplacement inclus uniquement sur Montréal ou Longueuil.</li>
+        </ul>
+        <p class="signoff">Hâte de créer de beaux souvenirs avec vous ! ♡</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="temoignages">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow-pill">Témoignages</span>
+        <h2>Ce qu'en disent les client·es</h2>
+        <p>Trois exemples à remplacer par vos propres retours avant la mise en ligne.</p>
+      </div>
+      <div class="quotes">
+        <div class="quote">
+          <span class="mark">“</span>
+          <p>Anaïs a su me mettre à l'aise en dix minutes — les couleurs sont si douces, on dirait un souvenir déjà ancien.</p>
+          <div class="who">Camille R. — Portrait</div>
+        </div>
+        <div class="quote">
+          <span class="mark">“</span>
+          <p>La lumière, le rythme de la journée, la discrétion pendant la cérémonie : tout était pensé. On revit notre mariage à chaque fois qu'on ouvre la galerie.</p>
+          <div class="who">Sophie &amp; Marc — Mariage</div>
+        </div>
+        <div class="quote">
+          <span class="mark">“</span>
+          <p>Livraison en 48h comme promis, et des photos d'une tendresse rare — jamais vu un rendu pastel aussi cohérent.</p>
+          <div class="who">Léa D. — Séance couple</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="tint-b">
+    <div class="wrap contact-grid">
+      <div>
+        <span class="eyebrow-pill">Contact</span>
+        <h2 style="margin-top:0.6rem;">Racontons votre histoire</h2>
+        <form id="bookingForm" style="margin-top:1.5rem;">
+          <div class="field-row">
+            <div class="field"><label for="name">Nom</label><input id="name" name="name" type="text" required autocomplete="name"></div>
+            <div class="field"><label for="email">Courriel</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="type">Type de séance</label>
+              <select id="type" name="type">
+                <option>Portrait</option>
+                <option>Couple</option>
+                <option>Mariage</option>
+                <option>Autre événement</option>
+              </select>
+            </div>
+            <div class="field"><label for="date">Date souhaitée</label><input id="date" name="date" type="date"></div>
+          </div>
+          <div class="field"><label for="message">Message</label><textarea id="message" name="message" rows="4" placeholder="Parlez-moi de votre projet…"></textarea></div>
+          <button type="submit" class="btn btn-solid" style="margin-top:0.4rem; width: fit-content;">Envoyer la demande</button>
+          <p class="form-note">Le bouton ouvre votre logiciel de courriel avec les informations pré-remplies — remplacez par une intégration de votre choix si besoin.</p>
+        </form>
+      </div>
+      <div class="contact-info">
+        <div class="item"><div class="l">Courriel</div><div class="v"><a href="mailto:bonjour@anaisgaillot.com">bonjour@anaisgaillot.com</a></div></div>
+        <div class="item"><div class="l">Téléphone</div><div class="v"><a href="tel:+15145550142">+1 (514) 555-0142</a></div></div>
+        <div class="item"><div class="l">Zone desservie</div><div class="v">Montréal &amp; Longueuil (déplacement inclus)</div></div>
+        <div class="item"><div class="l">Instagram</div><div class="v"><a href="#">@anais.gaillot.photo</a></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-row">
+    <div class="brand">Anaïs Gaillot</div>
+    <div>© <span id="year"></span> Anaïs Gaillot Photographie. Tous droits réservés.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const categories = ['Portrait','Couple','Mariage','Lifestyle','Portrait','Événement'];
+  const grid = document.getElementById('frameGrid');
+  const tones = [
+    ['#C97E68', '#B8654C'],
+    ['#8E76AC', '#7C64A0'],
+    ['#7C9370', '#5E7350'],
+    ['#D2937E', '#C97E68'],
+    ['#9A85B8', '#8E76AC'],
+    ['#8CA47D', '#7C9370'],
+  ];
+  categories.forEach((cat, i) => {
+    const frame = document.createElement('div');
+    frame.className = 'frame';
+    const [c1, c2] = tones[i % tones.length];
+    frame.innerHTML = `
+      <div class="tone" style="background: linear-gradient(135deg, ${c1}, ${c2});"></div>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+        <rect x="2" y="6" width="20" height="14" rx="2"/>
+        <circle cx="12" cy="13" r="4"/>
+        <path d="M8 6l1.5-2h5L16 6"/>
+      </svg>
+      <div class="meta"><span>${String(i+1).padStart(2,'0')}</span><span>${cat}</span></div>
+    `;
+    grid.appendChild(frame);
+  });
+
+  document.getElementById('bookingForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const f = e.target;
+    const subject = encodeURIComponent('Demande de séance — ' + (f.type.value || 'Photographie'));
+    const body = encodeURIComponent(
+      'Nom: ' + f.name.value + '\n' +
+      'Courriel: ' + f.email.value + '\n' +
+      'Type de séance: ' + f.type.value + '\n' +
+      'Date souhaitée: ' + (f.date.value || 'à discuter') + '\n\n' +
+      'Message:\n' + f.message.value
+    );
+    window.location.href = 'mailto:bonjour@anaisgaillot.com?subject=' + subject + '&body=' + body;
+  });
+</script>
