@@ -85,16 +85,20 @@
   }
 
   /* ---------- Scroll reveal ---------- */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.9s var(--ease-premium), transform 0.9s var(--ease-premium); }
   .reveal.in-view { opacity: 1; transform: translateY(0); }
-  .reveal-stagger.in-view > * { opacity: 1; transform: translateY(0) scale(1); }
-  .reveal-stagger > * { opacity: 0; transform: translateY(24px) scale(0.98); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal-stagger.in-view > * { opacity: 1; transform: translate(0, 0) scale(1); }
+  .reveal-stagger > * { opacity: 0; transform: translateY(30px) scale(0.97); transition: opacity 0.9s var(--ease-premium), transform 0.9s var(--ease-premium); }
+  .reveal-stagger.from-sides:not(.in-view) > *:nth-child(odd) { transform: translate(-34px, 18px) scale(0.97); }
+  .reveal-stagger.from-sides:not(.in-view) > *:nth-child(even) { transform: translate(34px, 18px) scale(0.97); }
   .reveal-stagger.in-view > *:nth-child(1) { transition-delay: 0.02s; }
   .reveal-stagger.in-view > *:nth-child(2) { transition-delay: 0.12s; }
   .reveal-stagger.in-view > *:nth-child(3) { transition-delay: 0.22s; }
   .reveal-stagger.in-view > *:nth-child(4) { transition-delay: 0.32s; }
   .reveal-stagger.in-view > *:nth-child(5) { transition-delay: 0.42s; }
   .reveal-stagger.in-view > *:nth-child(6) { transition-delay: 0.52s; }
+  .stat .n { transition: opacity 0.4s ease; }
 
   /* ---------- Nav ---------- */
   .nav {
@@ -390,9 +394,9 @@
         <p class="body-p">Chaque séance commence par une conversation, pas par un plan de poses. La patine pastel n'est pas un filtre appliqué après coup : c'est une façon de voir, pensée pour des images tendres que vous garderez longtemps.</p>
       </div>
       <div class="stat-row">
-        <div class="stat"><div class="n">2021</div><div class="l">Premières séances</div></div>
-        <div class="stat"><div class="n">90+</div><div class="l">Client·es accompagné·es</div></div>
-        <div class="stat"><div class="n">48h</div><div class="l">Galerie livrée</div></div>
+        <div class="stat"><div class="n" data-count-to="2021" data-suffix="">0</div><div class="l">Premières séances</div></div>
+        <div class="stat"><div class="n" data-count-to="90" data-suffix="+">0</div><div class="l">Client·es accompagné·es</div></div>
+        <div class="stat"><div class="n" data-count-to="48" data-suffix="h">0</div><div class="l">Galerie livrée</div></div>
       </div>
     </div>
   </section>
@@ -414,7 +418,7 @@
         <button class="filter-btn" data-filter="evenement">Événement</button>
       </div>
 
-      <div class="frame-grid reveal-stagger reveal" id="frameGrid"></div>
+      <div class="frame-grid reveal-stagger from-sides reveal" id="frameGrid"></div>
       <p class="sheet-caption">Emplacements pour vos photos — remplacez chaque visuel avant publication.</p>
     </div>
   </section>
@@ -686,6 +690,46 @@
     revealEls.forEach(function (el) { io.observe(el); });
   } else {
     revealEls.forEach(function (el) { el.classList.add('in-view'); });
+  }
+
+  /* Chiffres clés qui comptent au défilement */
+  var counters = document.querySelectorAll('[data-count-to]');
+  if ('IntersectionObserver' in window && counters.length) {
+    var counterIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        counterIo.unobserve(entry.target);
+        var el = entry.target;
+        var target = parseInt(el.getAttribute('data-count-to'), 10);
+        var suffix = el.getAttribute('data-suffix') || '';
+        var duration = 1400;
+        var start = null;
+        function step(ts) {
+          if (start === null) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.4 });
+    counters.forEach(function (el) { counterIo.observe(el); });
+  }
+
+  /* Parallaxe doux du visuel du hero (les formes "wash" gardent leur propre animation de flottement) */
+  var heroVisual = document.querySelector('.hero-visual');
+  if (heroVisual && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var y = window.scrollY;
+        heroVisual.style.transform = 'translateY(' + Math.min(y * 0.06, 40) + 'px)';
+        ticking = false;
+      });
+    }, { passive: true });
   }
 </script>
 </body>
