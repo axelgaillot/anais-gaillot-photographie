@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Anaïs Gaillot Photographie</title>
+<meta name="description" content="Portfolio d'Anaïs Gaillot, photographe : portraits, grossesse et événements en tons pastel.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23E7A493'/%3E%3Cg transform='translate(14,17)' fill='none' stroke='%23FFFFFF' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='0' y='10' width='36' height='24' rx='5'/%3E%3Cpath d='M10 10 L14 3 H22 L26 10'/%3E%3Ccircle cx='18' cy='22' r='8'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <a href="index.html" class="brand">Anaïs Gaillot</a>
+  <label for="nav-toggle" class="hamburger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></label>
+  <ul class="nav-links">
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="index.html#forfaits">Forfaits</a></li>
+    <li><a href="index.html#temoignages">Témoignages</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="index.html#contact">Réserver une séance</a>
+</nav>
+
+<main>
+  <div class="wrap page-header">
+    <span class="eyebrow-pill">Portfolio</span>
+    <h1 style="font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 4.5vw, 3rem); margin-top: 0.6rem;">Une sélection de séances récentes</h1>
+  </div>
+
+  <section style="padding-top: 0;">
+    <div class="wrap">
+      <div class="frame-grid reveal-stagger from-sides reveal">
+        <div class="frame"><img src="images/portfolio-1.jpg" alt="Séance grossesse, portrait rapproché" loading="lazy"></div>
+        <div class="frame"><img src="images/portfolio-2.jpg" alt="Séance grossesse, profil au pied d'un arbre" loading="lazy"></div>
+        <div class="frame"><img src="images/portfolio-3.jpg" alt="Séance grossesse, détail des mains" loading="lazy"></div>
+        <div class="frame"><img src="images/portfolio-4.jpg" alt="Séance grossesse, portrait lumière dorée" loading="lazy"></div>
+        <div class="frame"><img src="images/portfolio-5.jpg" alt="Séance grossesse, sourire complice" loading="lazy"></div>
+        <div class="frame"><img src="images/portfolio-6.jpg" alt="Séance grossesse, assise contre un arbre" loading="lazy"></div>
+        <div class="frame"><img src="images/portfolio-7.jpg" alt="Séance grossesse, détail fleurs et tatouages" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-row">
+    <a href="index.html" class="brand">Anaïs Gaillot</a>
+    <div>© <span id="year"></span> Anaïs Gaillot Photographie. Tous droits réservés.</div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Fermer">&times;</button>
+  <div class="lightbox-frame" id="lightbox-content"></div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  var frames = document.querySelectorAll('.frame');
+  var lightbox = document.getElementById('lightbox');
+  var lightboxContent = document.getElementById('lightbox-content');
+  var lightboxClose = document.getElementById('lightbox-close');
+  frames.forEach(function (frame) {
+    frame.addEventListener('click', function () {
+      var img = frame.querySelector('img');
+      lightboxContent.innerHTML = '<img src="' + img.src + '" alt="' + img.alt + '">';
+      lightbox.classList.add('active');
+    });
+  });
+  function closeLightbox() { lightbox.classList.remove('active'); lightboxContent.innerHTML = ''; }
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>

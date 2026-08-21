@@ -1,51 +1,64 @@
 # Anaïs Gaillot — Site vitrine Photographe
 
-Site vitrine statique, un seul fichier `index.html` (HTML/CSS/JS inline, sans dépendance de build),
-pour Anaïs Gaillot, photographe. Style pastel chaleureux (corail, lavande, sauge) avec touches de
-calligraphie, arches photo et animations douces au défilement.
+Site vitrine statique (HTML / CSS / JS, sans dépendances) pour Anaïs Gaillot, photographe.
+Style pastel chaleureux (corail, lavande, sauge) avec touche de calligraphie, page d'accueil
+épurée et portfolio dans sa propre page.
 
-## Sections du site
+## Structure du projet
 
-- **En-tête / Hero** : présentation, accroche, informations techniques (appareil, objectif, zone desservie)
-- **L'approche** : quelques chiffres clés
-- **Portfolio** : galerie filtrable par catégorie (Portrait, Couple, Mariage, Lifestyle, Événement) avec lightbox
-- **Forfaits** :
-  - Formule 1 — 180 $ CAD / jusqu'à 45 min / 15 photos
-  - Formule 2 — 230 $ CAD / jusqu'à 1h15 / 30 photos coup de cœur
-  - Formule 3 — 300 $ CAD / jusqu'à 1h30 / 50+ photos
-- **Témoignages** : trois citations clients
-- **Contact** : formulaire (nom, courriel, type de séance, date, message)
+```
+.
+├── index.html          # Page d'accueil : hero (2 photos), forfaits, témoignages, contact
+├── portfolio.html       # Page dédiée à la galerie complète
+├── css/style.css        # Styles partagés entre les deux pages
+├── js/main.js           # Comportements partagés (menu mobile, animations au scroll)
+├── images/              # Photos du site
+└── README.md
+```
+
+## Pages
+
+- **Accueil (`index.html`)** : hero avec deux photos mises en avant + un titre, puis Forfaits,
+  Témoignages et Contact. Volontairement épuré : pas de portfolio ni de longue présentation
+  dès l'arrivée.
+- **Portfolio (`portfolio.html`)** : galerie complète (7 photos) avec lightbox au clic,
+  accessible depuis le lien "Portfolio" du menu ou le bouton "Voir le portfolio" du hero.
+
+## Forfaits
+
+- Formule 1 — 180 $ CAD / jusqu'à 45 min / 15 photos
+- Formule 2 — 230 $ CAD / jusqu'à 1h15 / 30 photos coup de cœur
+- Formule 3 — 300 $ CAD / jusqu'à 1h30 / 50+ photos
 
 ## ⚠️ À compléter avant la mise en ligne définitive
 
-### 1. Photos du portfolio et de l'en-tête
+### 1. Photos
 
-Les emplacements du portfolio et l'illustration de l'en-tête sont actuellement des **dégradés de
-couleur générés en JavaScript** (voir la fonction qui remplit `#frameGrid` dans le `<script>` en bas
-de `index.html`), pas de vraies photos. Remplacez-les par de vrais fichiers image (`<img>` ou
-`background-image`) avant la mise en ligne définitive.
+Les deux photos du hero (`images/hero-1.jpg`, `images/hero-2.jpg`) et les sept photos du
+portfolio (`images/portfolio-1.jpg` à `portfolio-7.jpg`) sont déjà de vraies photos fournies.
+Vous pouvez en ajouter d'autres dans `images/` et les référencer dans `portfolio.html`
+(copiez un bloc `<div class="frame"><img src="..." alt="..."></div>`).
 
 ### 2. Coordonnées de contact
 
-- Le courriel de contact est **a.plenard@yahoo.com** (utilisé à la fois dans le formulaire et affiché
-  dans la section Contact).
-- Le **téléphone** et l'**Instagram** affichent actuellement « À compléter » — remplacez ces valeurs
-  par les vraies coordonnées dans la section `#contact` de `index.html`.
-- Vérifiez que les mentions **« Fujifilm X-T50 »**, **« 56 mm f/1.2 »**, et la zone desservie
-  (**Montréal & Longueuil**) correspondent bien à la réalité avant publication.
+- Le courriel de contact est **a.plenard@yahoo.com**.
+- Le **téléphone** et l'**Instagram** affichent « À compléter » dans la section Contact de
+  `index.html` — remplacez ces valeurs par les vraies coordonnées.
+- Vérifiez que la zone desservie (**Montréal & Longueuil**) et les mentions du forfait
+  (paiement Interac, etc.) correspondent bien à la réalité avant publication.
 
 ### 3. Formulaire de contact
 
-Le formulaire ouvre le client email du visiteur (lien `mailto:`) pré-rempli avec ses informations —
-solution simple qui fonctionne sans backend, compatible avec l'hébergement gratuit GitHub Pages.
-Pour un envoi plus fiable sur mobile (sans ouvrir le client mail du visiteur), vous pouvez brancher un
-service gratuit comme [Formspree](https://formspree.io/) ou [Web3Forms](https://web3forms.com/) :
-créez un compte, récupérez votre endpoint, et modifiez l'attribut `action` du `<form id="bookingForm">`.
+Le formulaire ouvre le client email du visiteur (lien `mailto:`) pré-rempli avec ses
+informations — solution simple qui fonctionne sans backend, compatible avec l'hébergement
+gratuit GitHub Pages. Pour un envoi plus fiable sur mobile, vous pouvez brancher un service
+gratuit comme [Formspree](https://formspree.io/) ou [Web3Forms](https://web3forms.com/) et
+modifier l'attribut `action` du `<form id="bookingForm">` dans `index.html`.
 
 ## Aperçu en local
 
-Aucune installation n'est nécessaire : ouvrez `index.html` dans un navigateur, ou lancez un petit
-serveur local, par exemple :
+Aucune installation n'est nécessaire : ouvrez `index.html` dans un navigateur, ou lancez un
+petit serveur local, par exemple :
 
 ```bash
 python -m http.server 8000
