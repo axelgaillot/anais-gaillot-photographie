@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anaïs Gaillot — Photographe</title>
+  <meta name="description" content="Anaïs Gaillot, photographe — portraits, couples, familles, grossesse et événements. Séances photo tout en douceur.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Bouton menu mobile -->
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#accueil" class="logo">Anaïs Gaillot</a>
+
+      <label for="nav-toggle" class="hamburger" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav class="main-nav">
+        <a href="#accueil">Accueil</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#forfaits">Forfaits</a>
+        <a href="#temoignages">Témoignages</a>
+        <a href="#contact" class="nav-cta">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="accueil" class="hero">
+      <div class="hero-bg" style="background-image:url('images/hero-bg.svg');"></div>
+      <div class="container hero-content">
+        <p class="script-tag">Bienvenue dans mon univers</p>
+        <h1>Anaïs Gaillot</h1>
+        <p class="hero-subtitle">Photographe — instants doux &amp; authentiques</p>
+        <p class="hero-text">Portraits, couples, familles, grossesse et événements : je capture avec délicatesse les moments qui vous ressemblent, dans une lumière douce et intemporelle.</p>
+        <div class="hero-actions">
+          <a href="#portfolio" class="btn btn-primary">Voir le portfolio</a>
+          <a href="#contact" class="btn btn-outline">Réserver une séance</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- A PROPOS -->
+    <section id="a-propos" class="about">
+      <div class="container about-grid">
+        <div class="about-image">
+          <img src="images/a-propos.svg" alt="Illustration douce représentant Anaïs Gaillot photographe">
+        </div>
+        <div class="about-content">
+          <p class="script-tag">Faisons connaissance</p>
+          <h2>Quelques mots sur moi</h2>
+          <p>Passionnée par la photographie depuis toujours, j'aime raconter des histoires simples et sincères à travers mon objectif. Mon approche est douce, bienveillante et sans artifice : je cherche avant tout à vous mettre à l'aise pour que vos vraies émotions ressortent naturellement.</p>
+          <p>Que ce soit pour un portrait en solo, en couple, en famille ou pour immortaliser un événement, chaque séance est pensée sur mesure, dans une ambiance chaleureuse et complice.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+        <div class="section-heading">
+          <p class="script-tag">Mon travail</p>
+          <h2>Portfolio</h2>
+          <p class="section-intro">Un aperçu de quelques séances réalisées avec tendresse. <em>(Photos de démonstration — à remplacer par vos propres clichés.)</em></p>
+        </div>
+
+        <div class="filters" role="tablist" aria-label="Filtrer le portfolio">
+          <button class="filter-btn active" data-filter="all">Tout</button>
+          <button class="filter-btn" data-filter="portrait">Portrait</button>
+          <button class="filter-btn" data-filter="couple">Couple</button>
+          <button class="filter-btn" data-filter="famille">Famille</button>
+          <button class="filter-btn" data-filter="grossesse">Grossesse &amp; Nouveau-né</button>
+          <button class="filter-btn" data-filter="evenement">Événement</button>
+        </div>
+
+        <div class="gallery">
+          <figure class="gallery-item" data-category="portrait">
+            <img src="images/portrait-1.svg" alt="Séance portrait, exemple 1" loading="lazy">
+            <figcaption>Portrait</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="couple">
+            <img src="images/couple-1.svg" alt="Séance couple, exemple 1" loading="lazy">
+            <figcaption>Couple</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="famille">
+            <img src="images/famille-1.svg" alt="Séance famille, exemple 1" loading="lazy">
+            <figcaption>Famille</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="grossesse">
+            <img src="images/nouveau-ne-1.svg" alt="Séance nouveau-né, exemple 1" loading="lazy">
+            <figcaption>Nouveau-né</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="grossesse">
+            <img src="images/grossesse-1.svg" alt="Séance grossesse, exemple 1" loading="lazy">
+            <figcaption>Grossesse</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="evenement">
+            <img src="images/evenement-1.svg" alt="Séance événement, exemple 1" loading="lazy">
+            <figcaption>Événement</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="portrait">
+            <img src="images/portrait-2.svg" alt="Séance portrait, exemple 2" loading="lazy">
+            <figcaption>Portrait</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="couple">
+            <img src="images/couple-2.svg" alt="Séance couple, exemple 2" loading="lazy">
+            <figcaption>Couple</figcaption>
+          </figure>
+          <figure class="gallery-item" data-category="famille">
+            <img src="images/famille-2.svg" alt="Séance famille, exemple 2" loading="lazy">
+            <figcaption>Famille</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORFAITS -->
+    <section id="forfaits" class="forfaits">
+      <div class="container">
+        <div class="section-heading">
+          <p class="script-tag">Mes prestations</p>
+          <h2>Forfaits</h2>
+          <p class="section-intro">Des formules pensées pour tous les moments de vie. Prix en dollars canadiens (CAD).</p>
+        </div>
+
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3>Formule 1</h3>
+            <p class="price"><span>180</span>$</p>
+            <ul class="pricing-details">
+              <li>45 minutes de séance</li>
+              <li>15 photos retouchées</li>
+              <li>Galerie numérique privée</li>
+              <li>Idéal pour un portrait simple</li>
+            </ul>
+            <a href="#contact" class="btn btn-outline btn-block" data-formule="Formule 1 — 180$ / 45 min / 15 photos">Choisir cette formule</a>
+          </div>
+
+          <div class="pricing-card featured">
+            <p class="badge">Le plus populaire</p>
+            <h3>Formule 2</h3>
+            <p class="price"><span>230</span>$</p>
+            <ul class="pricing-details">
+              <li>1h15 de séance</li>
+              <li>30 photos coup de cœur</li>
+              <li>Galerie numérique privée</li>
+              <li>Plusieurs tenues / décors possibles</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary btn-block" data-formule="Formule 2 — 230$ / 1h15 / 30 photos coup de cœur">Choisir cette formule</a>
+          </div>
+
+          <div class="pricing-card">
+            <h3>Formule 3</h3>
+            <p class="price"><span>300</span>$</p>
+            <ul class="pricing-details">
+              <li>1h30 de séance</li>
+              <li>50+ photos retouchées</li>
+              <li>Galerie numérique privée</li>
+              <li>Idéal familles &amp; événements</li>
+            </ul>
+            <a href="#contact" class="btn btn-outline btn-block" data-formule="Formule 3 — 300$ / 1h30 / 50+ photos">Choisir cette formule</a>
+          </div>
+        </div>
+        <p class="pricing-note">Une envie particulière, un forfait sur mesure ? <a href="#contact">Contactez-moi</a>, il me fera plaisir d'en discuter avec vous.</p>
+      </div>
+    </section>
+
+    <!-- TEMOIGNAGES -->
+    <section id="temoignages" class="temoignages">
+      <div class="container">
+        <div class="section-heading">
+          <p class="script-tag">Ils m'ont fait confiance</p>
+          <h2>Témoignages</h2>
+        </div>
+
+        <div class="testimonial-slider">
+          <div class="testimonial-track">
+            <blockquote class="testimonial-card">
+              <p>« Anaïs a su nous mettre immédiatement à l'aise. Les photos sont d'une douceur incroyable, on s'y reconnaît vraiment ! »</p>
+              <footer>— Camille &amp; Julien</footer>
+            </blockquote>
+            <blockquote class="testimonial-card">
+              <p>« Une séance grossesse magique, pleine de délicatesse. Le résultat dépasse toutes nos attentes. »</p>
+              <footer>— Marie-Ève</footer>
+            </blockquote>
+            <blockquote class="testimonial-card">
+              <p>« Notre séance famille restera un souvenir précieux. Anaïs est patiente, douce et tellement talentueuse avec les enfants. »</p>
+              <footer>— La famille Tremblay</footer>
+            </blockquote>
+            <blockquote class="testimonial-card">
+              <p>« Des photos de couple naturelles et pleines d'émotion. On recommande les yeux fermés ! »</p>
+              <footer>— Sarah &amp; Alex</footer>
+            </blockquote>
+          </div>
+          <div class="slider-dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+      <div class="container contact-grid">
+        <div class="contact-intro">
+          <p class="script-tag">Parlons de votre projet</p>
+          <h2>Contact</h2>
+          <p>Une question, une envie de séance ou simplement envie d'échanger ? Remplissez le formulaire ci-contre, je vous réponds avec plaisir sous 48h.</p>
+          <ul class="contact-info">
+            <li><strong>Email :</strong> <a href="mailto:a.plenard@yahoo.com">a.plenard@yahoo.com</a></li>
+            <li><strong>Zone desservie :</strong> Sur rendez-vous, région et alentours</li>
+            <li><strong>Réseaux :</strong> <a href="#" target="_blank" rel="noopener">Instagram</a> · <a href="#" target="_blank" rel="noopener">Facebook</a></li>
+          </ul>
+        </div>
+
+        <form id="contact-form" class="contact-form" novalidate>
+          <div class="form-row">
+            <label for="nom">Nom complet *</label>
+            <input type="text" id="nom" name="nom" required>
+          </div>
+          <div class="form-row">
+            <label for="email">Adresse email *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-row">
+            <label for="telephone">Téléphone</label>
+            <input type="tel" id="telephone" name="telephone">
+          </div>
+          <div class="form-row">
+            <label for="formule">Formule souhaitée</label>
+            <select id="formule" name="formule">
+              <option value="">— Sélectionner —</option>
+              <option value="Formule 1 — 180$ / 45 min / 15 photos">Formule 1 — 180$</option>
+              <option value="Formule 2 — 230$ / 1h15 / 30 photos coup de cœur">Formule 2 — 230$</option>
+              <option value="Formule 3 — 300$ / 1h30 / 50+ photos">Formule 3 — 300$</option>
+              <option value="Autre / à discuter">Autre / à discuter</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="date">Date souhaitée</label>
+            <input type="date" id="date" name="date">
+          </div>
+          <div class="form-row">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Envoyer ma demande</button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-logo">Anaïs Gaillot</p>
+      <p>Photographe — instants doux &amp; authentiques</p>
+      <p class="footer-copy">&copy; <span id="year"></span> Anaïs Gaillot Photographie. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Fermer">&times;</button>
+    <img src="" alt="" id="lightbox-img">
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
