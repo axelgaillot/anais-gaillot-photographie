@@ -1,278 +1,692 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anaïs Gaillot — Photographe</title>
-  <meta name="description" content="Anaïs Gaillot, photographe — portraits, couples, familles, grossesse et événements. Séances photo tout en douceur.">
-  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anaïs Gaillot Photographie</title>
+<meta name="description" content="Anaïs Gaillot, photographe de portraits et d'événements en tons pastel, disponible partout au Québec.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23E7A493'/%3E%3Cg transform='translate(14,17)' fill='none' stroke='%23FFFFFF' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='0' y='10' width='36' height='24' rx='5'/%3E%3Cpath d='M10 10 L14 3 H22 L26 10'/%3E%3Ccircle cx='18' cy='22' r='8'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Nunito+Sans:wght@300;400;600;700&display=swap');
+
+  :root {
+    --ink: #4A3B33;
+    --ink-soft: #8A7A6E;
+    --ink-faint: #B5A79A;
+
+    --paper: #FCF6EC;
+    --paper-raised: #FFFFFF;
+    --bg-tint-a: #FCEEEA;
+    --bg-tint-b: #F1EEF7;
+
+    --coral: #E7A493;
+    --coral-solid: #D98F79;
+    --coral-deep: #B8654C;
+    --lavender: #D8CBEA;
+    --lavender-solid: #AE97CC;
+    --lavender-deep: #7C64A0;
+    --sage: #D3DEC9;
+    --sage-solid: #96AC87;
+    --sage-deep: #5E7350;
+    --gold: #D9B98A;
+    --gold-deep: #A9843F;
+
+    --line: rgba(74, 59, 51, 0.13);
+    --shadow: rgba(74, 59, 51, 0.14);
+
+    --bg: var(--paper);
+    --bg-raised: var(--paper-raised);
+    --text: var(--ink);
+    --text-soft: var(--ink-soft);
+    --text-faint: var(--ink-faint);
+    --on-accent: #FFFFFF;
+    --border: var(--line);
+
+    --font-script: 'Parisienne', cursive;
+    --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-body: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2.5rem); }
+
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 500; text-wrap: balance; margin: 0; }
+  a { color: inherit; }
+  button { font-family: inherit; }
+  svg.icon-line { width: 20px; height: 20px; flex-shrink: 0; }
+
+  .eyebrow-pill {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--lavender);
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+  }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+  .reveal-stagger.in-view > * { opacity: 1; transform: translateY(0) scale(1); }
+  .reveal-stagger > * { opacity: 0; transform: translateY(24px) scale(0.98); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal-stagger.in-view > *:nth-child(1) { transition-delay: 0.02s; }
+  .reveal-stagger.in-view > *:nth-child(2) { transition-delay: 0.12s; }
+  .reveal-stagger.in-view > *:nth-child(3) { transition-delay: 0.22s; }
+  .reveal-stagger.in-view > *:nth-child(4) { transition-delay: 0.32s; }
+  .reveal-stagger.in-view > *:nth-child(5) { transition-delay: 0.42s; }
+  .reveal-stagger.in-view > *:nth-child(6) { transition-delay: 0.52s; }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 80;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1rem clamp(1.25rem, 4vw, 2.5rem);
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand { font-family: var(--font-script); font-size: 1.9rem; color: var(--text); line-height: 1; }
+  .nav-toggle { display: none; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 90; }
+  .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
+  .nav-links { display: flex; align-items: center; gap: clamp(1rem, 3vw, 2rem); list-style: none; margin: 0; padding: 0; font-size: 0.92rem; }
+  .nav-links a { text-decoration: none; opacity: 0.78; position: relative; padding-bottom: 3px; }
+  .nav-links a:after {
+    content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 1.5px;
+    background: var(--coral-deep); transition: width 0.25s ease;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-links a:hover:after { width: 100%; }
+  .nav-cta {
+    border: 1px solid var(--coral-deep);
+    color: var(--coral-deep);
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  }
+  .nav-cta:hover { background: var(--coral-deep); color: #fff; transform: translateY(-2px); }
+  @media (max-width: 780px) {
+    .hamburger { display: flex; }
+    .nav-cta { display: none; }
+    .nav-links {
+      position: fixed; top: 0; right: -100%; height: 100vh; width: min(78vw, 300px);
+      background: var(--bg-raised); flex-direction: column; align-items: flex-start; justify-content: center;
+      gap: 1.8rem; padding: 2.5rem; box-shadow: -20px 0 40px var(--shadow); transition: right 0.4s ease; z-index: 85; margin: 0;
+    }
+    .nav-toggle:checked ~ .nav-links { right: 0; }
+    .nav-toggle:checked ~ .hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle:checked ~ .hamburger span:nth-child(2) { opacity: 0; }
+    .nav-toggle:checked ~ .hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; padding: clamp(3rem, 9vw, 5rem) clamp(1.25rem, 4vw, 2.5rem) clamp(3rem, 8vw, 4.5rem); overflow: hidden; }
+  .hero-inner { position: relative; max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
+  .wash {
+    position: absolute; border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+    filter: blur(38px); opacity: 0.55; pointer-events: none; z-index: 0;
+    animation: float 14s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-14px, 18px) scale(1.05); }
+  }
+  .hero .script-lead {
+    position: relative; font-family: var(--font-script); font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+    color: var(--coral-deep); display: inline-block; margin-bottom: 0.4rem;
+  }
+  .hero h1 { position: relative; font-size: clamp(2.3rem, 5vw, 3.9rem); font-weight: 400; line-height: 1.1; color: var(--text); }
+  .hero p.lede { position: relative; margin-top: 1.4rem; max-width: 46ch; font-size: clamp(1.02rem, 1.5vw, 1.15rem); color: var(--text-soft); }
+  .hero-actions { position: relative; display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 2.3rem; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 1.6rem; border-radius: 999px; font-size: 0.92rem;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 26px -16px var(--shadow); }
+  .btn-solid { background: var(--coral-deep); color: var(--on-accent); }
+  .btn-ghost { border-color: var(--lavender-deep); color: var(--lavender-deep); }
+  .dash-link { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; font-weight: 700; font-size: 0.92rem; color: var(--coral-deep); }
+  .dash-link .dash { width: 28px; height: 1.5px; background: var(--coral-deep); transition: width 0.25s ease; }
+  .dash-link:hover .dash { width: 44px; }
+
+  .exif-strip {
+    position: relative; margin-top: clamp(2.2rem, 6vw, 3rem); padding-top: 1.1rem;
+    border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem;
+    font-family: var(--font-body); font-size: 0.76rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text-faint);
+  }
+
+  .hero-visual { position: relative; z-index: 1; }
+  .arch {
+    position: relative; overflow: hidden; aspect-ratio: 3 / 4;
+    border-radius: 50% 50% 0 0 / 26% 26% 0 0;
+    display: flex; align-items: flex-end; justify-content: center;
+    box-shadow: 0 30px 60px -30px var(--shadow);
+  }
+  .arch.arch-bottom { border-radius: 0 0 50% 50% / 0 0 26% 26%; align-items: flex-start; }
+  .arch .tone { position: absolute; inset: 0; }
+  .arch .icon { position: absolute; top: 42%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; opacity: 0.6; color: #fff; }
+  .arch .meta {
+    position: relative; width: 100%; padding: 0.9rem 1.1rem; color: #fff;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+    display: flex; justify-content: space-between;
+    background: linear-gradient(to top, rgba(0,0,0,0.28), transparent);
+  }
+  .arch.arch-bottom .meta { background: linear-gradient(to bottom, rgba(0,0,0,0.28), transparent); }
+
+  /* ---------- Sections ---------- */
+  section { padding: clamp(3.5rem, 9vw, 5.5rem) 0; }
+  .section-head { margin-bottom: clamp(2rem, 5vw, 3rem); position: relative; }
+  .section-head h2 { font-size: clamp(1.9rem, 3.6vw, 2.5rem); margin-top: 0.5rem; }
+  .section-head p { color: var(--text-soft); max-width: 56ch; margin-top: 0.7rem; }
+  .section-head.centered { text-align: center; margin-left: auto; margin-right: auto; }
+  .section-head.centered p { margin-left: auto; margin-right: auto; }
+  .watermark {
+    position: absolute; top: -1.6em; left: 50%; transform: translateX(-50%);
+    font-family: var(--font-script); font-size: clamp(3.5rem, 10vw, 7rem); color: var(--ink);
+    opacity: 0.06; white-space: nowrap; pointer-events: none; z-index: 0;
+  }
+
+  .tint-a { background: var(--bg-tint-a); }
+  .tint-b { background: var(--bg-tint-b); }
+
+  /* ---------- Approche ---------- */
+  .approche-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(2rem, 6vw, 4rem); align-items: start; }
+  .approche-grid p.body-p { color: var(--text-soft); font-size: 1.05rem; max-width: 52ch; }
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+  .stat { background: var(--bg-raised); border-radius: 14px; padding: 1rem 1.1rem; box-shadow: 0 10px 24px -20px var(--shadow); transition: transform 0.3s ease; }
+  .stat:hover { transform: translateY(-4px); }
+  .stat .n { font-family: var(--font-display); font-size: 1.9rem; color: var(--coral-deep); font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 0.8rem; color: var(--text-faint); margin-top: 0.2rem; }
+  @media (max-width: 720px) { .approche-grid { grid-template-columns: 1fr; } .stat-row { grid-template-columns: 1fr 1fr; } }
+
+  /* ---------- Portfolio ---------- */
+  .filters { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-bottom: 2.4rem; }
+  .filter-btn {
+    font-family: var(--font-body); background: var(--bg-raised); border: 1.5px solid var(--border);
+    color: var(--text); padding: 0.5rem 1.15rem; border-radius: 999px; cursor: pointer;
+    font-size: 0.82rem; font-weight: 700; transition: all 0.25s ease;
+  }
+  .filter-btn:hover { border-color: var(--coral-deep); }
+  .filter-btn.active { background: var(--coral-deep); border-color: var(--coral-deep); color: #fff; }
+
+  .frame-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+  .frame { cursor: pointer; transition: transform 0.4s ease; }
+  .frame:hover { transform: translateY(-8px); }
+  .frame.hidden-frame { display: none; }
+  @media (max-width: 720px) { .frame-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; } }
+  .sheet-caption { text-align: center; font-size: 0.8rem; color: var(--text-faint); margin-top: 2rem; }
+
+  /* ---------- Tarifs ---------- */
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .plan {
+    position: relative; border-radius: 22px; padding: 2rem 1.6rem 2.1rem;
+    display: flex; flex-direction: column; background: var(--bg-raised);
+    border: 1.5px solid var(--plan-color, var(--coral)); transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .plan:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -26px var(--shadow); }
+  .plan[data-tone="coral"] { --plan-color: var(--coral); --plan-solid: var(--coral-solid); --plan-deep: var(--coral-deep); }
+  .plan[data-tone="lavender"] { --plan-color: var(--lavender); --plan-solid: var(--lavender-solid); --plan-deep: var(--lavender-deep); }
+  .plan[data-tone="sage"] { --plan-color: var(--sage); --plan-solid: var(--sage-solid); --plan-deep: var(--sage-deep); }
+  .plan .badge {
+    position: absolute; top: -18px; right: 22px; width: 58px; height: 58px; border-radius: 50%;
+    background: var(--plan-solid); color: #fff; font-family: var(--font-body); font-weight: 700; font-size: 0.68rem;
+    display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.15;
+    box-shadow: 0 8px 16px -8px var(--shadow);
+  }
+  .plan .tag {
+    display: inline-block; align-self: flex-start; font-family: var(--font-body); font-size: 0.72rem;
+    font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff;
+    background: var(--plan-solid); padding: 0.4rem 0.9rem; border-radius: 999px;
+  }
+  .plan h3 { font-size: 1.4rem; margin-top: 0.8rem; color: var(--text); }
+  .plan .price { font-family: var(--font-script); font-size: 3rem; margin-top: 0.3rem; color: var(--plan-deep); line-height: 1; }
+  .plan .price small { font-size: 0.85rem; color: var(--text-faint); font-family: var(--font-body); margin-left: 0.3rem; }
+  .plan .rows { list-style: none; padding: 0; margin: 1.3rem 0 0; display: flex; flex-direction: column; }
+  .plan .rows li { display: flex; align-items: center; gap: 0.7rem; padding: 0.6rem 0; border-bottom: 1px dashed var(--border); font-size: 0.9rem; color: var(--text-soft); }
+  .plan .rows li:last-child { border-bottom: none; }
+  .plan .rows li .icon-line { color: var(--plan-deep); }
+  .plan .rows li b { color: var(--text); font-weight: 700; }
+  .plan .ideal { margin-top: 1.1rem; font-size: 0.85rem; color: var(--text-soft); }
+  .plan .ideal .eyebrow-pill { background: var(--plan-color); margin-bottom: 0.5rem; }
+  .plan .btn { margin-top: 1.4rem; justify-content: center; }
+  @media (max-width: 860px) { .plans { grid-template-columns: 1fr; } }
+
+  .know-box {
+    margin-top: 2.25rem; background: var(--bg-raised); border: 1.5px solid var(--gold);
+    border-radius: 20px; padding: 1.75rem clamp(1.25rem, 4vw, 2.25rem);
+  }
+  .know-box h3 { font-family: var(--font-script); font-size: 1.6rem; color: var(--gold-deep); }
+  .know-box ul { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-direction: column; gap: 0.65rem; }
+  .know-box li { display: flex; gap: 0.65rem; font-size: 0.95rem; color: var(--text-soft); align-items: flex-start; }
+  .know-box li .icon-line { color: var(--gold-deep); margin-top: 0.1rem; }
+  .know-box .signoff { margin-top: 1.4rem; font-family: var(--font-script); font-size: 1.3rem; color: var(--coral-deep); }
+
+  /* ---------- Temoignages ---------- */
+  .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .quote { background: var(--bg-raised); border-radius: 18px; padding: 1.6rem 1.5rem; box-shadow: 0 10px 24px -20px var(--shadow); transition: transform 0.3s ease; }
+  .quote:hover { transform: translateY(-6px); }
+  .quote .mark { font-family: var(--font-script); font-size: 2.4rem; color: var(--coral-deep); line-height: 0.7; display: block; }
+  .quote p { font-size: 1.0rem; color: var(--text); margin-top: 0.7rem; }
+  .quote .who { margin-top: 1rem; font-size: 0.85rem; color: var(--text-faint); }
+  @media (max-width: 860px) { .quotes { grid-template-columns: 1fr; } }
+
+  /* ---------- Contact ---------- */
+  .contact-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(2rem, 6vw, 4rem); }
+  form { display: grid; gap: 1rem; }
+  .field { display: grid; gap: 0.4rem; }
+  .field label { font-size: 0.82rem; color: var(--text-faint); }
+  .field input, .field select, .field textarea {
+    font-family: var(--font-body); font-size: 0.95rem; padding: 0.7rem 0.9rem;
+    background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; color: var(--text);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--coral-deep); outline-offset: 1px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
+  .contact-info { display: flex; flex-direction: column; gap: 1.4rem; }
+  .contact-info .item .l { font-size: 0.78rem; color: var(--text-faint); }
+  .contact-info .item .v { font-size: 1.05rem; margin-top: 0.15rem; }
+  .contact-info .item .v a { text-decoration: none; border-bottom: 1px solid var(--border); }
+  .form-note { font-size: 0.82rem; color: var(--text-faint); }
+  .form-status { font-size: 0.88rem; font-weight: 700; min-height: 1.3em; }
+  .form-status.success { color: var(--sage-deep); }
+  .form-status.error { color: var(--coral-deep); }
+  @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox {
+    display: none; position: fixed; inset: 0; background: rgba(74,59,51,0.92);
+    z-index: 200; align-items: center; justify-content: center; padding: 40px;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox-frame { width: min(420px, 80vw); aspect-ratio: 3/4; border-radius: 28px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.4); position: relative; }
+  .lightbox-close { position: absolute; top: 24px; right: 34px; background: none; border: none; color: #fff; font-size: 2.6rem; cursor: pointer; line-height: 1; }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--bg-raised); padding: 2.3rem clamp(1.25rem, 4vw, 2.5rem); border-top: 1px solid var(--border); }
+  .footer-row { max-width: 1120px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.85rem; color: var(--text-soft); }
+  .footer-row .brand { font-size: 1.3rem; }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-visual { max-width: 320px; margin: 0 auto; order: -1; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- Bouton menu mobile -->
+<nav class="nav">
   <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <div class="brand">Anaïs Gaillot</div>
+  <label for="nav-toggle" class="hamburger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></label>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#forfaits">Forfaits</a></li>
+    <li><a href="#temoignages">Témoignages</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Réserver une séance</a>
+</nav>
 
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="#accueil" class="logo">Anaïs Gaillot</a>
-
-      <label for="nav-toggle" class="hamburger" aria-label="Ouvrir le menu">
-        <span></span><span></span><span></span>
-      </label>
-
-      <nav class="main-nav">
-        <a href="#accueil">Accueil</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#forfaits">Forfaits</a>
-        <a href="#temoignages">Témoignages</a>
-        <a href="#contact" class="nav-cta">Contact</a>
-      </nav>
+<header class="hero">
+  <div class="wash" style="width:420px; height:320px; top:-60px; right:-60px; background: var(--coral);"></div>
+  <div class="wash" style="width:360px; height:300px; bottom:-80px; left:-60px; background: var(--lavender); animation-delay: -6s;"></div>
+  <div class="hero-inner">
+    <div>
+      <span class="script-lead">Anaïs Gaillot</span><br>
+      <span class="eyebrow-pill">Portraits · Événements · Lumière douce</span>
+      <h1 style="margin-top:0.9rem;">Des instants tout en douceur.</h1>
+      <p class="lede">Photographie de portrait et d'événement en tons pastel — capturée au Fujifilm X-T50 et à l'objectif 56 mm f/1.2, pour des images douces, intimes, à fleur de peau.</p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="#portfolio">Voir le portfolio</a>
+        <a class="btn btn-ghost" href="#contact">Demander un devis</a>
+      </div>
+      <div class="exif-strip">
+        <span>FUJIFILM X-T50</span><span>56MM F/1.2</span><span>TEINTES PASTEL</span><span>DISPONIBLE PARTOUT AU QUÉBEC</span>
+      </div>
     </div>
-  </header>
-
-  <main>
-    <!-- HERO -->
-    <section id="accueil" class="hero">
-      <div class="hero-bg" style="background-image:url('images/hero-bg.svg');"></div>
-      <div class="container hero-content">
-        <p class="script-tag">Bienvenue dans mon univers</p>
-        <h1>Anaïs Gaillot</h1>
-        <p class="hero-subtitle">Photographe — instants doux &amp; authentiques</p>
-        <p class="hero-text">Portraits, couples, familles, grossesse et événements : je capture avec délicatesse les moments qui vous ressemblent, dans une lumière douce et intemporelle.</p>
-        <div class="hero-actions">
-          <a href="#portfolio" class="btn btn-primary">Voir le portfolio</a>
-          <a href="#contact" class="btn btn-outline">Réserver une séance</a>
-        </div>
+    <div class="hero-visual">
+      <div class="arch">
+        <div class="tone" style="background: linear-gradient(150deg, var(--coral-solid), var(--lavender-solid));"></div>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1">
+          <rect x="2" y="6" width="20" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2h5L16 6"/>
+        </svg>
+        <div class="meta"><span>Séance portrait</span><span>Aperçu</span></div>
       </div>
-    </section>
+    </div>
+  </div>
+</header>
 
-    <!-- A PROPOS -->
-    <section id="a-propos" class="about">
-      <div class="container about-grid">
-        <div class="about-image">
-          <img src="images/a-propos.svg" alt="Illustration douce représentant Anaïs Gaillot photographe">
-        </div>
-        <div class="about-content">
-          <p class="script-tag">Faisons connaissance</p>
-          <h2>Quelques mots sur moi</h2>
-          <p>Passionnée par la photographie depuis toujours, j'aime raconter des histoires simples et sincères à travers mon objectif. Mon approche est douce, bienveillante et sans artifice : je cherche avant tout à vous mettre à l'aise pour que vos vraies émotions ressortent naturellement.</p>
-          <p>Que ce soit pour un portrait en solo, en couple, en famille ou pour immortaliser un événement, chaque séance est pensée sur mesure, dans une ambiance chaleureuse et complice.</p>
-        </div>
+<main>
+  <section class="tint-b reveal">
+    <div class="wrap approche-grid">
+      <div>
+        <span class="eyebrow-pill">L'approche</span>
+        <h2 style="margin-top:0.6rem;">Une lumière douce, un regard sincère</h2>
+        <p class="body-p">Chaque séance commence par une conversation, pas par un plan de poses. La patine pastel n'est pas un filtre appliqué après coup : c'est une façon de voir, pensée pour des images tendres que vous garderez longtemps.</p>
       </div>
-    </section>
-
-    <!-- PORTFOLIO -->
-    <section id="portfolio" class="portfolio">
-      <div class="container">
-        <div class="section-heading">
-          <p class="script-tag">Mon travail</p>
-          <h2>Portfolio</h2>
-          <p class="section-intro">Un aperçu de quelques séances réalisées avec tendresse. <em>(Photos de démonstration — à remplacer par vos propres clichés.)</em></p>
-        </div>
-
-        <div class="filters" role="tablist" aria-label="Filtrer le portfolio">
-          <button class="filter-btn active" data-filter="all">Tout</button>
-          <button class="filter-btn" data-filter="portrait">Portrait</button>
-          <button class="filter-btn" data-filter="couple">Couple</button>
-          <button class="filter-btn" data-filter="famille">Famille</button>
-          <button class="filter-btn" data-filter="grossesse">Grossesse &amp; Nouveau-né</button>
-          <button class="filter-btn" data-filter="evenement">Événement</button>
-        </div>
-
-        <div class="gallery">
-          <figure class="gallery-item" data-category="portrait">
-            <img src="images/portrait-1.svg" alt="Séance portrait, exemple 1" loading="lazy">
-            <figcaption>Portrait</figcaption>
-          </figure>
-          <figure class="gallery-item" data-category="couple">
-            <img src="images/couple-1.svg" alt="Séance couple, exemple 1" loading="lazy">
-            <figcaption>Couple</figcaption>
-          </figure>
-          <figure class="gallery-item" data-category="famille">
-            <img src="images/famille-1.svg" alt="Séance famille, exemple 1" loading="lazy">
-            <figcaption>Famille</figcaption>
-          </figure>
-          <figure class="gallery-item" data-category="grossesse">
-            <img src="images/nouveau-ne-1.svg" alt="Séance nouveau-né, exemple 1" loading="lazy">
-            <figcaption>Nouveau-né</figcaption>
-          </figure>
-          <figure class="gallery-item" data-category="grossesse">
-            <img src="images/grossesse-1.svg" alt="Séance grossesse, exemple 1" loading="lazy">
-            <figcaption>Grossesse</figcaption>
-          </figure>
-          <figure class="gallery-item" data-category="evenement">
-            <img src="images/evenement-1.svg" alt="Séance événement, exemple 1" loading="lazy">
-            <figcaption>Événement</figcaption>
-          </figure>
-          <figure class="gallery-item" data-category="portrait">
-            <img src="images/portrait-2.svg" alt="Séance portrait, exemple 2" loading="lazy">
-            <figcaption>Portrait</figcaption>
-          </figure>
-          <figure class="gallery-item" data-category="couple">
-            <img src="images/couple-2.svg" alt="Séance couple, exemple 2" loading="lazy">
-            <figcaption>Couple</figcaption>
-          </figure>
-          <figure class="gallery-item" data-category="famille">
-            <img src="images/famille-2.svg" alt="Séance famille, exemple 2" loading="lazy">
-            <figcaption>Famille</figcaption>
-          </figure>
-        </div>
+      <div class="stat-row">
+        <div class="stat"><div class="n">2021</div><div class="l">Premières séances</div></div>
+        <div class="stat"><div class="n">90+</div><div class="l">Client·es accompagné·es</div></div>
+        <div class="stat"><div class="n">48h</div><div class="l">Galerie livrée</div></div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- FORFAITS -->
-    <section id="forfaits" class="forfaits">
-      <div class="container">
-        <div class="section-heading">
-          <p class="script-tag">Mes prestations</p>
-          <h2>Forfaits</h2>
-          <p class="section-intro">Des formules pensées pour tous les moments de vie. Prix en dollars canadiens (CAD).</p>
-        </div>
-
-        <div class="pricing-grid">
-          <div class="pricing-card">
-            <h3>Formule 1</h3>
-            <p class="price"><span>180</span>$</p>
-            <ul class="pricing-details">
-              <li>45 minutes de séance</li>
-              <li>15 photos retouchées</li>
-              <li>Galerie numérique privée</li>
-              <li>Idéal pour un portrait simple</li>
-            </ul>
-            <a href="#contact" class="btn btn-outline btn-block" data-formule="Formule 1 — 180$ / 45 min / 15 photos">Choisir cette formule</a>
-          </div>
-
-          <div class="pricing-card featured">
-            <p class="badge">Le plus populaire</p>
-            <h3>Formule 2</h3>
-            <p class="price"><span>230</span>$</p>
-            <ul class="pricing-details">
-              <li>1h15 de séance</li>
-              <li>30 photos coup de cœur</li>
-              <li>Galerie numérique privée</li>
-              <li>Plusieurs tenues / décors possibles</li>
-            </ul>
-            <a href="#contact" class="btn btn-primary btn-block" data-formule="Formule 2 — 230$ / 1h15 / 30 photos coup de cœur">Choisir cette formule</a>
-          </div>
-
-          <div class="pricing-card">
-            <h3>Formule 3</h3>
-            <p class="price"><span>300</span>$</p>
-            <ul class="pricing-details">
-              <li>1h30 de séance</li>
-              <li>50+ photos retouchées</li>
-              <li>Galerie numérique privée</li>
-              <li>Idéal familles &amp; événements</li>
-            </ul>
-            <a href="#contact" class="btn btn-outline btn-block" data-formule="Formule 3 — 300$ / 1h30 / 50+ photos">Choisir cette formule</a>
-          </div>
-        </div>
-        <p class="pricing-note">Une envie particulière, un forfait sur mesure ? <a href="#contact">Contactez-moi</a>, il me fera plaisir d'en discuter avec vous.</p>
+  <section id="portfolio">
+    <div class="wrap">
+      <div class="section-head centered reveal">
+        <span class="eyebrow-pill">Portfolio</span>
+        <h2>Une sélection de séances récentes</h2>
+        <p>Portraits, couples, événements — chaque emplacement ci-dessous accueillera vos plus belles images.</p>
       </div>
-    </section>
 
-    <!-- TEMOIGNAGES -->
-    <section id="temoignages" class="temoignages">
-      <div class="container">
-        <div class="section-heading">
-          <p class="script-tag">Ils m'ont fait confiance</p>
-          <h2>Témoignages</h2>
-        </div>
-
-        <div class="testimonial-slider">
-          <div class="testimonial-track">
-            <blockquote class="testimonial-card">
-              <p>« Anaïs a su nous mettre immédiatement à l'aise. Les photos sont d'une douceur incroyable, on s'y reconnaît vraiment ! »</p>
-              <footer>— Camille &amp; Julien</footer>
-            </blockquote>
-            <blockquote class="testimonial-card">
-              <p>« Une séance grossesse magique, pleine de délicatesse. Le résultat dépasse toutes nos attentes. »</p>
-              <footer>— Marie-Ève</footer>
-            </blockquote>
-            <blockquote class="testimonial-card">
-              <p>« Notre séance famille restera un souvenir précieux. Anaïs est patiente, douce et tellement talentueuse avec les enfants. »</p>
-              <footer>— La famille Tremblay</footer>
-            </blockquote>
-            <blockquote class="testimonial-card">
-              <p>« Des photos de couple naturelles et pleines d'émotion. On recommande les yeux fermés ! »</p>
-              <footer>— Sarah &amp; Alex</footer>
-            </blockquote>
-          </div>
-          <div class="slider-dots"></div>
-        </div>
+      <div class="filters reveal">
+        <button class="filter-btn active" data-filter="all">Tout</button>
+        <button class="filter-btn" data-filter="portrait">Portrait</button>
+        <button class="filter-btn" data-filter="couple">Couple</button>
+        <button class="filter-btn" data-filter="mariage">Mariage</button>
+        <button class="filter-btn" data-filter="lifestyle">Lifestyle</button>
+        <button class="filter-btn" data-filter="evenement">Événement</button>
       </div>
-    </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="contact">
-      <div class="container contact-grid">
-        <div class="contact-intro">
-          <p class="script-tag">Parlons de votre projet</p>
-          <h2>Contact</h2>
-          <p>Une question, une envie de séance ou simplement envie d'échanger ? Remplissez le formulaire ci-contre, je vous réponds avec plaisir sous 48h.</p>
-          <ul class="contact-info">
-            <li><strong>Email :</strong> <a href="mailto:a.plenard@yahoo.com">a.plenard@yahoo.com</a></li>
-            <li><strong>Zone desservie :</strong> Sur rendez-vous, région et alentours</li>
-            <li><strong>Réseaux :</strong> <a href="#" target="_blank" rel="noopener">Instagram</a> · <a href="#" target="_blank" rel="noopener">Facebook</a></li>
+      <div class="frame-grid reveal-stagger reveal" id="frameGrid"></div>
+      <p class="sheet-caption">Emplacements pour vos photos — remplacez chaque visuel avant publication.</p>
+    </div>
+  </section>
+
+  <section id="forfaits" class="tint-a">
+    <div class="wrap">
+      <div class="section-head centered reveal">
+        <span class="eyebrow-pill">Mes prestations</span>
+        <h2>Trois formules pour s'adapter à vos envies</h2>
+        <p>Pour vos souvenirs — durée, nombre de photos et livraison varient selon la formule choisie.</p>
+      </div>
+      <div class="plans reveal-stagger reveal">
+
+        <div class="plan" data-tone="coral">
+          <span class="tag">Formule 1</span>
+          <h3>Séance express</h3>
+          <div class="price">180 $ <small>CAD</small></div>
+          <ul class="rows">
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Durée : <b>jusqu'à 45 minutes</b></li>
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6.5" width="19" height="13" rx="2.5"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6.5l1.3-2h5.4l1.3 2"/></svg> Photos : <b>15 incluses</b></li>
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17.5A4 4 0 018 9.7 5 5 0 0117.8 11 3.6 3.6 0 0117 17.5"/><path d="M12 12v6m0-6l-2.2 2.2M12 12l2.2 2.2"/></svg> Livraison : <b>galerie privée HD</b></li>
           </ul>
+          <div class="ideal">
+            <span class="eyebrow-pill">Idéal pour</span>
+            <p style="margin:0.5rem 0 0;">Séance express, couple, portrait, réseaux sociaux…</p>
+          </div>
+          <a class="btn btn-ghost" style="border:1px solid var(--coral-deep); color:var(--coral-deep);" href="#contact" data-formule="Formule 1 — 180$ / 45 min / 15 photos">Choisir cette formule</a>
         </div>
 
-        <form id="contact-form" class="contact-form" novalidate>
-          <div class="form-row">
-            <label for="nom">Nom complet *</label>
-            <input type="text" id="nom" name="nom" required>
+        <div class="plan" data-tone="lavender">
+          <span class="badge">COUP<br>DE ♡</span>
+          <span class="tag">Formule 2</span>
+          <h3>Séance complète</h3>
+          <div class="price">230 $ <small>CAD</small></div>
+          <ul class="rows">
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Durée : <b>jusqu'à 1h15</b></li>
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6.5" width="19" height="13" rx="2.5"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6.5l1.3-2h5.4l1.3 2"/></svg> Photos : <b>30 incluses</b></li>
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17.5A4 4 0 018 9.7 5 5 0 0117.8 11 3.6 3.6 0 0117 17.5"/><path d="M12 12v6m0-6l-2.2 2.2M12 12l2.2 2.2"/></svg> Livraison : <b>galerie privée HD</b></li>
+          </ul>
+          <div class="ideal">
+            <span class="eyebrow-pill">Idéal pour</span>
+            <p style="margin:0.5rem 0 0;">Séance complète, famille, grossesse, lifestyle…</p>
           </div>
-          <div class="form-row">
-            <label for="email">Adresse email *</label>
-            <input type="email" id="email" name="email" required>
+          <a class="btn btn-solid" style="background:var(--lavender-deep);" href="#contact" data-formule="Formule 2 — 230$ / 1h15 / 30 photos coup de cœur">Choisir cette formule</a>
+        </div>
+
+        <div class="plan" data-tone="sage">
+          <span class="tag">Formule 3</span>
+          <h3>Grand jour</h3>
+          <div class="price">300 $ <small>CAD</small></div>
+          <ul class="rows">
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Durée : <b>jusqu'à 1h30</b></li>
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6.5" width="19" height="13" rx="2.5"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6.5l1.3-2h5.4l1.3 2"/></svg> Photos : <b>50 minimum</b></li>
+            <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17.5A4 4 0 018 9.7 5 5 0 0117.8 11 3.6 3.6 0 0117 17.5"/><path d="M12 12v6m0-6l-2.2 2.2M12 12l2.2 2.2"/></svg> Livraison : <b>galerie privée HD</b></li>
+          </ul>
+          <div class="ideal">
+            <span class="eyebrow-pill">Idéal pour</span>
+            <p style="margin:0.5rem 0 0;">Ne rien manquer, vos plus beaux souvenirs.</p>
           </div>
-          <div class="form-row">
-            <label for="telephone">Téléphone</label>
-            <input type="tel" id="telephone" name="telephone">
+          <a class="btn btn-ghost" style="border:1px solid var(--sage-deep); color:var(--sage-deep);" href="#contact" data-formule="Formule 3 — 300$ / 1h30 / 50+ photos">Choisir cette formule</a>
+        </div>
+
+      </div>
+
+      <div class="know-box reveal">
+        <h3>Bon à savoir</h3>
+        <ul>
+          <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7.5-4.6-9.8-9A5.4 5.4 0 0112 6.5 5.4 5.4 0 0121.8 12c-2.3 4.4-9.8 9-9.8 9z"/></svg> Toutes les séances sont personnalisées selon vos envies.</li>
+          <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7.5-4.6-9.8-9A5.4 5.4 0 0112 6.5 5.4 5.4 0 0121.8 12c-2.3 4.4-9.8 9-9.8 9z"/></svg> Un acompte est demandé pour réserver votre date.</li>
+          <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7.5-4.6-9.8-9A5.4 5.4 0 0112 6.5 5.4 5.4 0 0121.8 12c-2.3 4.4-9.8 9-9.8 9z"/></svg> Paiement par virement Interac ou autre méthode convenue ensemble.</li>
+          <li><svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-6-6.1-6-10.5A6 6 0 0118 10.5C18 14.9 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.1"/></svg> Déplacement inclus uniquement sur Montréal ou Longueuil.</li>
+        </ul>
+        <p class="signoff">Hâte de créer de beaux souvenirs avec vous ! ♡</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="temoignages">
+    <div class="wrap">
+      <div class="section-head centered reveal">
+        <span class="watermark">Témoignages</span>
+        <span class="eyebrow-pill">Témoignages</span>
+        <h2>Ce qu'en disent les client·es</h2>
+        <p>Trois exemples à remplacer par vos propres retours avant la mise en ligne.</p>
+      </div>
+      <div class="quotes reveal-stagger reveal">
+        <div class="quote">
+          <span class="mark">"</span>
+          <p>Anaïs a su me mettre à l'aise en dix minutes — les couleurs sont si douces, on dirait un souvenir déjà ancien.</p>
+          <div class="who">Camille R. — Portrait</div>
+        </div>
+        <div class="quote">
+          <span class="mark">"</span>
+          <p>La lumière, le rythme de la journée, la discrétion pendant la cérémonie : tout était pensé. On revit notre mariage à chaque fois qu'on ouvre la galerie.</p>
+          <div class="who">Sophie &amp; Marc — Mariage</div>
+        </div>
+        <div class="quote">
+          <span class="mark">"</span>
+          <p>Livraison en 48h comme promis, et des photos d'une tendresse rare — jamais vu un rendu pastel aussi cohérent.</p>
+          <div class="who">Léa D. — Séance couple</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="tint-b">
+    <div class="wrap contact-grid reveal">
+      <div>
+        <span class="eyebrow-pill">Contact</span>
+        <h2 style="margin-top:0.6rem;">Racontons votre histoire</h2>
+        <form id="bookingForm" style="margin-top:1.5rem;">
+          <div class="field-row">
+            <div class="field"><label for="name">Nom</label><input id="name" name="name" type="text" required autocomplete="name"></div>
+            <div class="field"><label for="email">Courriel</label><input id="email" name="email" type="email" required autocomplete="email"></div>
           </div>
-          <div class="form-row">
-            <label for="formule">Formule souhaitée</label>
-            <select id="formule" name="formule">
-              <option value="">— Sélectionner —</option>
-              <option value="Formule 1 — 180$ / 45 min / 15 photos">Formule 1 — 180$</option>
-              <option value="Formule 2 — 230$ / 1h15 / 30 photos coup de cœur">Formule 2 — 230$</option>
-              <option value="Formule 3 — 300$ / 1h30 / 50+ photos">Formule 3 — 300$</option>
-              <option value="Autre / à discuter">Autre / à discuter</option>
-            </select>
+          <div class="field-row">
+            <div class="field">
+              <label for="type">Type de séance</label>
+              <select id="type" name="type">
+                <option>Portrait</option>
+                <option>Couple</option>
+                <option>Mariage</option>
+                <option>Autre événement</option>
+              </select>
+            </div>
+            <div class="field"><label for="date">Date souhaitée</label><input id="date" name="date" type="date"></div>
           </div>
-          <div class="form-row">
-            <label for="date">Date souhaitée</label>
-            <input type="date" id="date" name="date">
-          </div>
-          <div class="form-row">
-            <label for="message">Message *</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block">Envoyer ma demande</button>
+          <div class="field"><label for="message">Message</label><textarea id="message" name="message" rows="4" placeholder="Parlez-moi de votre projet…" required></textarea></div>
+          <button type="submit" class="btn btn-solid" style="margin-top:0.4rem; width: fit-content;">Envoyer la demande</button>
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          <p class="form-note">Le bouton ouvre votre logiciel de courriel avec les informations pré-remplies — remplacez par une intégration de votre choix si besoin.</p>
         </form>
       </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="footer-logo">Anaïs Gaillot</p>
-      <p>Photographe — instants doux &amp; authentiques</p>
-      <p class="footer-copy">&copy; <span id="year"></span> Anaïs Gaillot Photographie. Tous droits réservés.</p>
+      <div class="contact-info">
+        <div class="item"><div class="l">Courriel</div><div class="v"><a href="mailto:a.plenard@yahoo.com">a.plenard@yahoo.com</a></div></div>
+        <div class="item"><div class="l">Téléphone</div><div class="v">À compléter</div></div>
+        <div class="item"><div class="l">Zone desservie</div><div class="v">Montréal &amp; Longueuil (déplacement inclus)</div></div>
+        <div class="item"><div class="l">Instagram</div><div class="v"><a href="#">À compléter</a></div></div>
+      </div>
     </div>
-  </footer>
+  </section>
+</main>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="lightbox-close" aria-label="Fermer">&times;</button>
-    <img src="" alt="" id="lightbox-img">
+<footer>
+  <div class="footer-row">
+    <div class="brand">Anaïs Gaillot</div>
+    <div>© <span id="year"></span> Anaïs Gaillot Photographie. Tous droits réservés.</div>
   </div>
+</footer>
 
-  <script src="js/script.js"></script>
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Fermer">&times;</button>
+  <div class="lightbox-frame" id="lightbox-content"></div>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* Fermer le menu mobile après un clic sur un lien */
+  var navToggle = document.getElementById('nav-toggle');
+  document.querySelectorAll('.nav-links a').forEach(function (link) {
+    link.addEventListener('click', function () { navToggle.checked = false; });
+  });
+
+  /* Génération des emplacements du portfolio (planches à remplacer par de vraies photos) */
+  var items = [
+    { cat: 'portrait', label: 'Portrait', arch: 'top' },
+    { cat: 'couple', label: 'Couple', arch: 'bottom' },
+    { cat: 'mariage', label: 'Mariage', arch: 'top' },
+    { cat: 'lifestyle', label: 'Lifestyle', arch: 'bottom' },
+    { cat: 'portrait', label: 'Portrait', arch: 'top' },
+    { cat: 'evenement', label: 'Événement', arch: 'bottom' }
+  ];
+  var tones = [
+    ['#C97E68', '#B8654C'], ['#8E76AC', '#7C64A0'], ['#7C9370', '#5E7350'],
+    ['#D2937E', '#C97E68'], ['#9A85B8', '#8E76AC'], ['#8CA47D', '#7C9370']
+  ];
+  var grid = document.getElementById('frameGrid');
+  items.forEach(function (item, i) {
+    var frame = document.createElement('div');
+    frame.className = 'frame';
+    frame.setAttribute('data-category', item.cat);
+    var c1 = tones[i % tones.length][0], c2 = tones[i % tones.length][1];
+    frame.innerHTML =
+      '<div class="arch' + (item.arch === 'bottom' ? ' arch-bottom' : '') + '">' +
+        '<div class="tone" style="background: linear-gradient(135deg, ' + c1 + ', ' + c2 + ');"></div>' +
+        '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">' +
+          '<rect x="2" y="6" width="20" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2h5L16 6"/>' +
+        '</svg>' +
+        '<div class="meta"><span>' + String(i + 1).padStart(2, '0') + '</span><span>' + item.label + '</span></div>' +
+      '</div>';
+    grid.appendChild(frame);
+  });
+
+  /* Filtres du portfolio */
+  var filterButtons = document.querySelectorAll('.filter-btn');
+  var frames = document.querySelectorAll('.frame');
+  filterButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      filterButtons.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var filter = btn.getAttribute('data-filter');
+      frames.forEach(function (f) {
+        var show = filter === 'all' || f.getAttribute('data-category') === filter;
+        f.classList.toggle('hidden-frame', !show);
+      });
+    });
+  });
+
+  /* Lightbox */
+  var lightbox = document.getElementById('lightbox');
+  var lightboxContent = document.getElementById('lightbox-content');
+  var lightboxClose = document.getElementById('lightbox-close');
+  frames.forEach(function (frame) {
+    frame.addEventListener('click', function () {
+      lightboxContent.innerHTML = frame.querySelector('.arch').outerHTML;
+      lightbox.classList.add('active');
+    });
+  });
+  function closeLightbox() { lightbox.classList.remove('active'); lightboxContent.innerHTML = ''; }
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+
+  /* Pré-remplissage du formulaire depuis les boutons de formule */
+  var typeSelect = document.getElementById('type');
+  document.querySelectorAll('[data-formule]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.getElementById('message').value = 'Formule souhaitée : ' + btn.getAttribute('data-formule') + '\n\n';
+    });
+  });
+
+  /* Formulaire de contact : ouvre le client email (site statique, sans serveur de formulaire) */
+  var CONTACT_EMAIL = 'a.plenard@yahoo.com';
+  var form = document.getElementById('bookingForm');
+  var formStatusEl = document.getElementById('form-status');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target;
+    if (!f.elements['name'].value.trim() || !f.email.value.trim() || !f.message.value.trim()) {
+      formStatusEl.textContent = 'Merci de remplir les champs obligatoires.';
+      formStatusEl.className = 'form-status error';
+      return;
+    }
+    var subject = encodeURIComponent('Demande de séance — ' + (f.type.value || 'Photographie'));
+    var body = encodeURIComponent(
+      'Nom: ' + f.elements['name'].value + '\n' +
+      'Courriel: ' + f.email.value + '\n' +
+      'Type de séance: ' + f.type.value + '\n' +
+      'Date souhaitée: ' + (f.date.value || 'à discuter') + '\n\n' +
+      'Message:\n' + f.message.value
+    );
+    window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body;
+    formStatusEl.textContent = 'Votre client email va s\'ouvrir pour envoyer votre demande. Merci !';
+    formStatusEl.className = 'form-status success';
+  });
+
+  /* Animations au scroll */
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+  }
+</script>
 </body>
 </html>
