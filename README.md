@@ -1,28 +1,43 @@
 # Anaïs Gaillot — Site vitrine Photographe
 
-Site vitrine statique (HTML / CSS / JS, sans dépendances) pour Anaïs Gaillot, photographe.
-Style pastel chaleureux (corail, lavande, sauge) avec touche de calligraphie, page d'accueil
-épurée et portfolio dans sa propre page.
+Site vitrine pour Anaïs Gaillot, photographe, construit avec **Next.js, React, TypeScript et
+Tailwind CSS** (structure shadcn), exporté en site statique. Palette chaude à accent vert pin,
+hero en plein écran qui s'agrandit au scroll (molette/tactile), portfolio dans sa propre page.
+
+## Stack
+
+- [Next.js](https://nextjs.org/) (App Router) avec export statique (`output: 'export'`)
+- React + TypeScript
+- Tailwind CSS (+ structure de composants façon [shadcn/ui](https://ui.shadcn.com/), voir `components.json`)
+- [Framer Motion](https://www.framer.com/motion/) pour l'animation du hero
 
 ## Structure du projet
 
 ```
 .
-├── index.html          # Page d'accueil : hero (2 photos), forfaits, témoignages, contact
-├── portfolio.html       # Page dédiée à la galerie complète
-├── css/style.css        # Styles partagés entre les deux pages
-├── js/main.js           # Comportements partagés (menu mobile, animations au scroll)
-├── images/              # Photos du site
+├── app/
+│   ├── layout.tsx        # Layout racine : polices, nav, footer
+│   ├── page.tsx           # Page d'accueil : hero, aperçu, forfaits, témoignages, contact
+│   ├── globals.css        # Styles globaux (variables de couleur, mise en page)
+│   ├── icon.svg            # Favicon
+│   └── portfolio/page.tsx # Page dédiée à la galerie complète
+├── components/
+│   ├── ui/scroll-expansion-hero.tsx  # Hero animé (photo qui s'agrandit au scroll)
+│   ├── site-nav.tsx, site-footer.tsx
+│   ├── contact-form.tsx   # Formulaire (ouvre le client email du visiteur)
+│   ├── plan-cta.tsx       # Boutons "Choisir cette formule"
+│   ├── portfolio-gallery.tsx  # Galerie + lightbox
+│   └── reveal.tsx          # Animation d'apparition au scroll
+├── lib/utils.ts            # Utilitaire cn() (clsx + tailwind-merge)
+├── public/images/          # Photos du site
 └── README.md
 ```
 
 ## Pages
 
-- **Accueil (`index.html`)** : hero avec deux photos mises en avant + un titre, puis Forfaits,
-  Témoignages et Contact. Volontairement épuré : pas de portfolio ni de longue présentation
-  dès l'arrivée.
-- **Portfolio (`portfolio.html`)** : galerie complète (7 photos) avec lightbox au clic,
-  accessible depuis le lien "Portfolio" du menu ou le bouton "Voir le portfolio" du hero.
+- **Accueil (`/`)** : hero plein écran (photo qui s'agrandit au scroll de la molette/au tactile),
+  bande d'aperçu de 4 photos, Forfaits, Témoignages et Contact.
+- **Portfolio (`/portfolio`)** : galerie complète (7 photos) avec lightbox au clic.
 
 ## Forfaits
 
@@ -32,40 +47,40 @@ Style pastel chaleureux (corail, lavande, sauge) avec touche de calligraphie, pa
 
 ## ⚠️ À compléter avant la mise en ligne définitive
 
-### 1. Photos
-
-Les deux photos du hero (`images/hero-1.jpg`, `images/hero-2.jpg`) et les sept photos du
-portfolio (`images/portfolio-1.jpg` à `portfolio-7.jpg`) sont déjà de vraies photos fournies.
-Vous pouvez en ajouter d'autres dans `images/` et les référencer dans `portfolio.html`
-(copiez un bloc `<div class="frame"><img src="..." alt="..."></div>`).
-
-### 2. Coordonnées de contact
+### 1. Coordonnées de contact
 
 - Le courriel de contact est **a.plenard@yahoo.com**.
 - Le **téléphone** et l'**Instagram** affichent « À compléter » dans la section Contact de
-  `index.html` — remplacez ces valeurs par les vraies coordonnées.
+  `app/page.tsx` — remplacez ces valeurs par les vraies coordonnées.
 - Vérifiez que la zone desservie (**Montréal & Longueuil**) et les mentions du forfait
   (paiement Interac, etc.) correspondent bien à la réalité avant publication.
 
-### 3. Formulaire de contact
+### 2. Formulaire de contact
 
 Le formulaire ouvre le client email du visiteur (lien `mailto:`) pré-rempli avec ses
 informations — solution simple qui fonctionne sans backend, compatible avec l'hébergement
 gratuit GitHub Pages. Pour un envoi plus fiable sur mobile, vous pouvez brancher un service
-gratuit comme [Formspree](https://formspree.io/) ou [Web3Forms](https://web3forms.com/) et
-modifier l'attribut `action` du `<form id="bookingForm">` dans `index.html`.
+gratuit comme [Formspree](https://formspree.io/) ou [Web3Forms](https://web3forms.com/) dans
+`components/contact-form.tsx`.
 
-## Aperçu en local
-
-Aucune installation n'est nécessaire : ouvrez `index.html` dans un navigateur, ou lancez un
-petit serveur local, par exemple :
+## Développement local
 
 ```bash
-python -m http.server 8000
+npm install
+npm run dev
 ```
 
-puis rendez-vous sur `http://localhost:8000`.
+puis rendez-vous sur `http://localhost:3000`.
+
+## Build / export statique
+
+```bash
+npm run build
+```
+
+Génère un site statique dans `out/`, prêt à héberger sur GitHub Pages (ou tout hébergeur statique).
 
 ## Déploiement (GitHub Pages)
 
-Ce site est prêt à être publié tel quel avec GitHub Pages (branche `main`, dossier racine `/`).
+Publiez le contenu du dossier `out/` (généré par `npm run build`) sur la branche `gh-pages` ou
+configurez une action GitHub qui lance `npm run build` puis déploie `out/`.
