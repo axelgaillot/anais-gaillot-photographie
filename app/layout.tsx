@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Nunito_Sans, Parisienne } from 'next/font/google';
+import { Cormorant_Garamond, Nunito_Sans, Kaushan_Script } from 'next/font/google';
 import './globals.css';
 import { SiteNav } from '@/components/site-nav';
 import { SiteFooter } from '@/components/site-footer';
@@ -17,16 +17,16 @@ const body = Nunito_Sans({
   variable: '--font-body',
 });
 
-const script = Parisienne({
+const script = Kaushan_Script({
   subsets: ['latin'],
   weight: ['400'],
   variable: '--font-script',
 });
 
 export const metadata: Metadata = {
-  title: 'Anaïs Gaillot Photographie',
+  title: 'Kodascreen',
   description:
-    "Anaïs Gaillot, photographe de portraits et d'événements en tons chauds, disponible sur Montréal et Longueuil.",
+    "Kodascreen, studio de photographie de portraits et d'événements en tons chauds, disponible sur Montréal et Longueuil.",
 };
 
 export default function RootLayout({

@@ -3,8 +3,8 @@ import { Reveal } from '@/components/reveal';
 import { PlanCta } from '@/components/plan-cta';
 
 export const metadata: Metadata = {
-  title: 'Forfaits — Anaïs Gaillot Photographie',
-  description: 'Les trois formules de séance photo proposées par Anaïs Gaillot.',
+  title: 'Forfaits — Kodascreen',
+  description: 'Les trois formules de séance photo proposées par Kodascreen.',
 };
 
 export default function ForfaitsPage() {

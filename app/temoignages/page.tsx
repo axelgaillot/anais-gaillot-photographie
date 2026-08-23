@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Reveal } from '@/components/reveal';
 
 export const metadata: Metadata = {
-  title: 'Témoignages — Anaïs Gaillot Photographie',
-  description: "Ce qu'en disent les client·es d'Anaïs Gaillot.",
+  title: 'Témoignages — Kodascreen',
+  description: "Ce qu'en disent les client·es de Kodascreen.",
 };
 
 export default function TemoignagesPage() {

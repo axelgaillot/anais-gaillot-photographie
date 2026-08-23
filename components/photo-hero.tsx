@@ -14,14 +14,21 @@ export function PhotoHero({
   title,
   subtitle,
   photos,
+  sky = false,
 }: {
   eyebrow: string;
   title: string;
   subtitle: string;
   photos: [HeroPhoto, HeroPhoto];
+  sky?: boolean;
 }) {
   return (
-    <section className="hero-photo">
+    <section className={`hero-photo ${sky ? 'hero-photo-sky' : ''}`}>
+      {sky && (
+        <div className="hero-sky" aria-hidden="true">
+          <div className="hero-sky-clouds" />
+        </div>
+      )}
       <div className="wrap hero-photo-grid">
         <motion.div
           className="hero-photo-copy"

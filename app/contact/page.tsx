@@ -4,8 +4,8 @@ import { Reveal } from '@/components/reveal';
 import { ContactForm } from '@/components/contact-form';
 
 export const metadata: Metadata = {
-  title: 'Contact — Anaïs Gaillot Photographie',
-  description: "Réservez votre séance avec Anaïs Gaillot, photographe.",
+  title: 'Contact — Kodascreen',
+  description: 'Réservez votre séance avec Kodascreen.',
 };
 
 export default function ContactPage() {

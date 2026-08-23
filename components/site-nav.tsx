@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 const NAV_LINKS = [
   { href: '/portfolio', label: 'Portfolio' },
@@ -16,7 +17,9 @@ export function SiteNav() {
   return (
     <nav className="nav">
       <Link href="/" className="brand" onClick={() => setOpen(false)}>
-        Anaïs Gaillot
+        <motion.span whileTap={{ scale: 0.9 }} style={{ display: 'inline-block' }}>
+          Kodascreen
+        </motion.span>
       </Link>
       <button
         className="hamburger"

@@ -5,9 +5,9 @@ export function SiteFooter() {
     <footer>
       <div className="footer-row">
         <Link href="/" className="brand">
-          Anaïs Gaillot
+          Kodascreen
         </Link>
-        <div>© {new Date().getFullYear()} Anaïs Gaillot Photographie. Tous droits réservés.</div>
+        <div>© {new Date().getFullYear()} Kodascreen. Tous droits réservés.</div>
       </div>
     </footer>
   );

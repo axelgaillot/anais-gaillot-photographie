@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { PortfolioGallery } from '@/components/portfolio-gallery';
 
 export const metadata: Metadata = {
-  title: 'Portfolio — Anaïs Gaillot Photographie',
-  description: "Portfolio d'Anaïs Gaillot, photographe : portraits, grossesse et événements en tons chauds.",
+  title: 'Portfolio — Kodascreen',
+  description: 'Portfolio Kodascreen : portraits, grossesse et événements en tons chauds.',
 };
 
 export default function PortfolioPage() {
