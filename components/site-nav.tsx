@@ -5,9 +5,9 @@ import Link from 'next/link';
 
 const NAV_LINKS = [
   { href: '/portfolio', label: 'Portfolio' },
-  { href: '/#forfaits', label: 'Forfaits' },
-  { href: '/#temoignages', label: 'Témoignages' },
-  { href: '/#contact', label: 'Contact' },
+  { href: '/forfaits', label: 'Forfaits' },
+  { href: '/temoignages', label: 'Témoignages' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export function SiteNav() {
@@ -48,7 +48,7 @@ export function SiteNav() {
           </li>
         ))}
       </ul>
-      <Link href="/#contact" className="nav-cta">
+      <Link href="/contact" className="nav-cta">
         Réserver une séance
       </Link>
     </nav>

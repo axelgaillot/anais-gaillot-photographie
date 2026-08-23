@@ -22,7 +22,7 @@ hero en plein écran qui s'agrandit au scroll (molette/tactile), portfolio dans 
 │   ├── icon.svg            # Favicon
 │   └── portfolio/page.tsx # Page dédiée à la galerie complète
 ├── components/
-│   ├── ui/scroll-expansion-hero.tsx  # Hero animé (photo qui s'agrandit au scroll)
+│   ├── photo-hero.tsx      # Hero : photos en capsules sur fond crème
 │   ├── site-nav.tsx, site-footer.tsx
 │   ├── contact-form.tsx   # Formulaire (ouvre le client email du visiteur)
 │   ├── plan-cta.tsx       # Boutons "Choisir cette formule"

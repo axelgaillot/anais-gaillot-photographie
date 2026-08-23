@@ -1,11 +1,21 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const CONTACT_EMAIL = 'a.plenard@yahoo.com';
 
 export function ContactForm() {
   const [status, setStatus] = useState<{ text: string; kind: 'success' | 'error' } | null>(null);
+  const searchParams = useSearchParams();
+  const [prefill, setPrefill] = useState('');
+
+  useEffect(() => {
+    const formule = searchParams.get('formule');
+    if (formule) {
+      setPrefill(`Formule souhaitée : ${formule}\n\n`);
+    }
+  }, [searchParams]);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -63,6 +73,8 @@ export function ContactForm() {
           name="message"
           rows={4}
           placeholder="Parlez-moi de votre projet…"
+          defaultValue={prefill}
+          key={prefill}
           required
         />
       </div>
