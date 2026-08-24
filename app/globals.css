@@ -146,7 +146,7 @@ h3 {
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: 0.92rem;
+  font-size: 1.05rem;
 }
 .nav-links a {
   text-decoration: none;
@@ -169,7 +169,7 @@ h3 {
 }
 .nav-links a:hover {
   opacity: 1;
-  transform: scale(1.08);
+  transform: scale(1.22);
 }
 .nav-links a:hover:after {
   width: 100%;
@@ -325,6 +325,51 @@ section {
 }
 .tint {
   background: var(--tint);
+}
+
+/* ---------- Ecran d'introduction ---------- */
+.intro-splash-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: linear-gradient(180deg, #aecbea 0%, #8fb2dc 45%, #7699c6 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+.intro-splash-media {
+  position: relative;
+  overflow: hidden;
+  max-width: 92vw;
+  max-height: 62dvh;
+  box-shadow: 0 30px 70px -25px rgba(20, 40, 70, 0.45);
+  transition: none;
+}
+.intro-splash-copy {
+  margin-top: clamp(1.2rem, 3.5vw, 2rem);
+  text-align: center;
+  transition: opacity 0.1s linear;
+}
+.intro-splash-eyebrow {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+.intro-splash-copy h1 {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0.2rem 0 0;
+}
+.intro-splash-hint {
+  margin-top: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.88rem;
 }
 
 /* ---------- Hero photo (accueil) ---------- */
