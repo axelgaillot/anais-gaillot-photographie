@@ -166,33 +166,31 @@ export function IntroSplash({ children }: { children: ReactNode }) {
 
   return (
     <HeroRevealContext.Provider value={showContent}>
-      {!dismissed && (
-        <section ref={stageRef} className="intro-splash-stage">
-          <Image
-            ref={bgRef}
-            src="/images/intro-welcome.jpg"
-            alt="Bienvenue dans l'univers de Kodascreen"
-            fill
-            priority
-            className="intro-splash-bg"
-          />
+      <section ref={stageRef} className="intro-splash-stage" aria-hidden={dismissed}>
+        <Image
+          ref={bgRef}
+          src="/images/intro-welcome.jpg"
+          alt="Bienvenue dans l'univers de Kodascreen"
+          fill
+          priority
+          className="intro-splash-bg"
+        />
 
-          <div className="intro-splash-copy intro-splash-copy-enter">
-            <div className="intro-splash-copy-inner">
-              <span ref={line1Ref} className="intro-splash-copy-part">
-                Bienvenue dans l&apos;univers
-              </span>
-              <span ref={line2Ref} className="intro-splash-copy-part intro-splash-copy-part-accent">
-                de Kodascreen
-              </span>
-            </div>
+        <div className="intro-splash-copy intro-splash-copy-enter">
+          <div className="intro-splash-copy-inner">
+            <span ref={line1Ref} className="intro-splash-copy-part">
+              Bienvenue dans l&apos;univers
+            </span>
+            <span ref={line2Ref} className="intro-splash-copy-part intro-splash-copy-part-accent">
+              de Kodascreen
+            </span>
           </div>
+        </div>
 
-          <p ref={hintRef} className="intro-splash-hint">
-            Faites défiler pour entrer
-          </p>
-        </section>
-      )}
+        <p ref={hintRef} className="intro-splash-hint">
+          Faites défiler pour entrer
+        </p>
+      </section>
 
       {children}
     </HeroRevealContext.Provider>

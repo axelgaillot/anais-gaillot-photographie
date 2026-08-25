@@ -74,6 +74,30 @@ export function BestOfGallery() {
   };
 
   useEffect(() => {
+    const strip = stripRef.current;
+    if (!strip || !('IntersectionObserver' in window)) return;
+
+    let hasPeeked = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasPeeked) {
+            hasPeeked = true;
+            io.unobserve(entry.target);
+            strip.scrollTo({ left: 240, behavior: 'smooth' });
+            setTimeout(() => {
+              strip.scrollTo({ left: 0, behavior: 'smooth' });
+            }, 1100);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    io.observe(strip);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
     if (activeIndex === null) return;
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape') setActiveIndex(null);
