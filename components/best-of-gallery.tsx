@@ -77,6 +77,19 @@ export function BestOfGallery() {
     const strip = stripRef.current;
     if (!strip || !('IntersectionObserver' in window)) return;
 
+    const animateScrollTo = (target: number, duration: number) => {
+      const start = strip.scrollLeft;
+      const change = target - start;
+      const startTime = performance.now();
+      const step = (now: number) => {
+        const t = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        strip.scrollLeft = start + change * eased;
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
     let hasPeeked = false;
     const io = new IntersectionObserver(
       (entries) => {
@@ -84,10 +97,8 @@ export function BestOfGallery() {
           if (entry.isIntersecting && !hasPeeked) {
             hasPeeked = true;
             io.unobserve(entry.target);
-            strip.scrollTo({ left: 240, behavior: 'smooth' });
-            setTimeout(() => {
-              strip.scrollTo({ left: 0, behavior: 'smooth' });
-            }, 1100);
+            animateScrollTo(240, 1600);
+            setTimeout(() => animateScrollTo(0, 1600), 2200);
           }
         });
       },
