@@ -28,8 +28,8 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   const stageRef = useRef<HTMLElement | null>(null);
   const showContentRef = useRef(false);
 
-  const STAGE_FADE_START = 0.5;
-  const STAGE_FADE_END = 0.88;
+  const STAGE_FADE_START = 0.58;
+  const STAGE_FADE_END = 0.98;
 
   const applyStyles = (p: number) => {
     if (bgRef.current) {
