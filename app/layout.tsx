@@ -43,6 +43,7 @@ export default function RootLayout({
         <SiteNav />
         {children}
         <SiteFooter />
+        <div className="grain-overlay" aria-hidden="true" />
       </body>
     </html>
   );

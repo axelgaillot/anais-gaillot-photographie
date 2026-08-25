@@ -24,15 +24,22 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   const MIN_JOURNEY_MS = 3400;
 
   const bgRef = useRef<HTMLImageElement | null>(null);
+  const bgMobileRef = useRef<HTMLImageElement | null>(null);
   const stageRef = useRef<HTMLElement | null>(null);
 
   const STAGE_FADE_START = 0.4;
   const STAGE_FADE_END = 0.98;
 
   const applyStyles = (p: number) => {
+    const blur = `blur(${p * 14}px)`;
+    const scale = `scale(${1 + p * 0.42})`;
     if (bgRef.current) {
-      bgRef.current.style.filter = `blur(${p * 14}px)`;
-      bgRef.current.style.transform = `scale(${1 + p * 0.42})`;
+      bgRef.current.style.filter = blur;
+      bgRef.current.style.transform = scale;
+    }
+    if (bgMobileRef.current) {
+      bgMobileRef.current.style.filter = blur;
+      bgMobileRef.current.style.transform = scale;
     }
 
     const fadeP = Math.max(0, Math.min((p - STAGE_FADE_START) / (STAGE_FADE_END - STAGE_FADE_START), 1));
@@ -171,7 +178,15 @@ export function IntroSplash({ children }: { children: ReactNode }) {
           alt="Kodascreen, gardienne d'images et poésie du réel"
           fill
           priority
-          className="intro-splash-bg"
+          className="intro-splash-bg intro-splash-bg-desktop"
+        />
+        <Image
+          ref={bgMobileRef}
+          src="/images/intro-welcome-mobile.jpg"
+          alt="Kodascreen, gardienne d'images et poésie du réel"
+          fill
+          priority
+          className="intro-splash-bg intro-splash-bg-mobile"
         />
       </section>
 

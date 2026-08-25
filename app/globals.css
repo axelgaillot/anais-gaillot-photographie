@@ -10,29 +10,40 @@ html::-webkit-scrollbar {
   display: none;
 }
 
-:root {
-  --ink: #2e2418;
-  --ink-soft: #6b5842;
-  --ink-faint: #a89475;
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
 
-  --paper: #f6efe1;
-  --paper-raised: #fffaf2;
-  --tint: #ecdec3;
+:root {
+  --ink: #3c3123;
+  --ink-soft: #7a6a53;
+  --ink-faint: #ad9d84;
+
+  --paper: #efe6d6;
+  --paper-raised: #f8f1e3;
+  --tint: #e4d7bd;
 
   --accent: #3e4f3b;
   --accent-deep: #2a362a;
   --accent-soft: #e2ddcd;
 
-  --line: rgba(64, 46, 24, 0.14);
-  --shadow: rgba(40, 28, 12, 0.2);
+  --line: rgba(64, 46, 24, 0.12);
+  --shadow: rgba(40, 28, 12, 0.15);
 
   --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
   --nav-h: 68px;
 
-  --navy-deep: #4a3626;
-  --on-navy: #f8f1e3;
-  --on-navy-soft: rgba(248, 241, 227, 0.72);
-  --on-navy-line: rgba(248, 241, 227, 0.16);
+  --navy-deep: #5c4a38;
+  --on-navy: #f0e6d4;
+  --on-navy-soft: rgba(240, 230, 212, 0.72);
+  --on-navy-line: rgba(240, 230, 212, 0.16);
 }
 
 * {
@@ -362,9 +373,16 @@ section {
   transform-origin: 51% 34%;
   transition: none;
 }
+.intro-splash-bg-mobile {
+  display: none;
+}
 @media (max-aspect-ratio: 4/5) {
-  .intro-splash-bg {
-    object-fit: contain;
+  .intro-splash-bg-desktop {
+    display: none;
+  }
+  .intro-splash-bg-mobile {
+    display: block;
+    transform-origin: 50% 37%;
   }
 }
 /* ---------- Hero photo (accueil) ---------- */
