@@ -28,9 +28,12 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   const targetProgress = useRef(0);
   const displayProgress = useRef(0);
   const rafId = useRef<number | null>(null);
+  const lastTickTime = useRef<number | null>(null);
   const touchStartY = useRef(0);
   const fullyExpandedRef = useRef(false);
   const listenersRef = useRef<Set<ProgressListener>>(new Set());
+
+  const MIN_JOURNEY_MS = 2000;
 
   const bgRef = useRef<HTMLImageElement | null>(null);
   const line1Ref = useRef<HTMLSpanElement | null>(null);
@@ -90,10 +93,19 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (dismissed) return;
 
-    const tick = () => {
+    const tick = (now: number) => {
+      const last = lastTickTime.current ?? now;
+      const dt = now - last;
+      lastTickTime.current = now;
+
       const diff = targetProgress.current - displayProgress.current;
-      displayProgress.current += diff * 0.14;
-      if (Math.abs(diff) < 0.0005) displayProgress.current = targetProgress.current;
+      const easedStep = diff * 0.14;
+      const maxStep = dt / MIN_JOURNEY_MS;
+      const step = diff === 0 ? 0 : Math.sign(diff) * Math.min(Math.abs(easedStep), maxStep);
+      displayProgress.current += step;
+      if (Math.abs(targetProgress.current - displayProgress.current) < 0.0005) {
+        displayProgress.current = targetProgress.current;
+      }
       applyStyles(displayProgress.current);
 
       if (displayProgress.current >= STAGE_FADE_END && !fullyExpandedRef.current) {
@@ -106,6 +118,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
     rafId.current = requestAnimationFrame(tick);
     return () => {
       if (rafId.current) cancelAnimationFrame(rafId.current);
+      lastTickTime.current = null;
     };
   }, [dismissed]);
 
