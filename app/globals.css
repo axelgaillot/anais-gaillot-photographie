@@ -112,7 +112,7 @@ h3 {
 
 /* ---------- Nav ---------- */
 body.intro-active .nav {
-  display: none;
+  visibility: hidden;
 }
 .nav {
   position: sticky;
