@@ -25,30 +25,16 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   const MIN_JOURNEY_MS = 2600;
 
   const bgRef = useRef<HTMLImageElement | null>(null);
-  const line1Ref = useRef<HTMLSpanElement | null>(null);
-  const line2Ref = useRef<HTMLSpanElement | null>(null);
-  const hintRef = useRef<HTMLParagraphElement | null>(null);
   const stageRef = useRef<HTMLElement | null>(null);
 
-  const STAGE_FADE_START = 0.48;
+  const STAGE_FADE_START = 0.4;
   const STAGE_FADE_END = 0.98;
 
   const applyStyles = (p: number) => {
     if (bgRef.current) {
       bgRef.current.style.filter = `blur(${p * 14}px)`;
-      bgRef.current.style.transform = `scale(${1 + p * 0.18})`;
+      bgRef.current.style.transform = `scale(${1 + p * 0.42})`;
     }
-    const exitP = Math.min(p * 2.1, 1);
-    const exitOpacity = String(Math.max(1 - exitP * 1.15, 0));
-    if (line1Ref.current) {
-      line1Ref.current.style.opacity = exitOpacity;
-      line1Ref.current.style.transform = `translateX(${-exitP * 65}vw)`;
-    }
-    if (line2Ref.current) {
-      line2Ref.current.style.opacity = exitOpacity;
-      line2Ref.current.style.transform = `translateX(${exitP * 65}vw)`;
-    }
-    if (hintRef.current) hintRef.current.style.opacity = String(Math.max(0.85 - p * 3, 0));
 
     const fadeP = Math.max(0, Math.min((p - STAGE_FADE_START) / (STAGE_FADE_END - STAGE_FADE_START), 1));
     if (stageRef.current) {
@@ -173,26 +159,11 @@ export function IntroSplash({ children }: { children: ReactNode }) {
         <Image
           ref={bgRef}
           src="/images/intro-welcome.jpg"
-          alt="Bienvenue dans l'univers de Kodascreen"
+          alt="Kodascreen, gardienne d'images et poésie du réel"
           fill
           priority
           className="intro-splash-bg"
         />
-
-        <div className="intro-splash-copy intro-splash-copy-enter">
-          <div className="intro-splash-copy-inner">
-            <span ref={line1Ref} className="intro-splash-copy-part">
-              Bienvenue dans l&apos;univers
-            </span>
-            <span ref={line2Ref} className="intro-splash-copy-part intro-splash-copy-part-accent">
-              de Kodascreen
-            </span>
-          </div>
-        </div>
-
-        <p ref={hintRef} className="intro-splash-hint">
-          Faites défiler pour entrer
-        </p>
       </section>
 
       {children}
