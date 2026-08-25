@@ -33,7 +33,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   const fullyExpandedRef = useRef(false);
   const listenersRef = useRef<Set<ProgressListener>>(new Set());
 
-  const MIN_JOURNEY_MS = 2000;
+  const MIN_JOURNEY_MS = 1800;
 
   const bgRef = useRef<HTMLImageElement | null>(null);
   const line1Ref = useRef<HTMLSpanElement | null>(null);
@@ -41,7 +41,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   const hintRef = useRef<HTMLParagraphElement | null>(null);
   const stageRef = useRef<HTMLElement | null>(null);
 
-  const STAGE_FADE_START = 0.58;
+  const STAGE_FADE_START = 0.48;
   const STAGE_FADE_END = 0.98;
 
   const progressApi = useMemo<HeroProgressApi>(
@@ -61,7 +61,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
       bgRef.current.style.filter = `blur(${p * 14}px)`;
       bgRef.current.style.transform = `scale(${1 + p * 0.18})`;
     }
-    const exitP = Math.min(p * 1.7, 1);
+    const exitP = Math.min(p * 2.1, 1);
     const exitOpacity = String(Math.max(1 - exitP * 1.15, 0));
     if (line1Ref.current) {
       line1Ref.current.style.opacity = exitOpacity;
