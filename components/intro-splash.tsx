@@ -10,6 +10,7 @@ import {
 } from 'react';
 import Image from 'next/image';
 import { emitHeroProgress } from '@/lib/hero-progress';
+import { withBasePath } from '@/lib/utils';
 
 export function IntroSplash({ children }: { children: ReactNode }) {
   const [fullyExpanded, setFullyExpanded] = useState(false);
@@ -174,7 +175,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
       <section ref={stageRef} className="intro-splash-stage" aria-hidden={dismissed}>
         <Image
           ref={bgRef}
-          src="/images/intro-welcome.jpg"
+          src={withBasePath('/images/intro-welcome.jpg')}
           alt="Kodascreen, gardienne d'images et poésie du réel"
           fill
           priority
@@ -182,7 +183,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
         />
         <Image
           ref={bgMobileRef}
-          src="/images/intro-welcome-mobile.jpg"
+          src={withBasePath('/images/intro-welcome-mobile.jpg')}
           alt="Kodascreen, gardienne d'images et poésie du réel"
           fill
           priority

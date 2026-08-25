@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, MouseEvent as ReactMouseEvent } from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/reveal';
+import { withBasePath } from '@/lib/utils';
 
 interface Photo {
   src: string;
@@ -145,7 +146,7 @@ export function BestOfGallery() {
               onClick={() => handleItemClick(i)}
               aria-label={photo.alt}
             >
-              <Image src={photo.src} alt={photo.alt} width={480} height={640} loading="lazy" draggable={false} />
+              <Image src={withBasePath(photo.src)} alt={photo.alt} width={480} height={640} loading="lazy" draggable={false} />
             </button>
           ))}
         </div>
@@ -173,7 +174,7 @@ export function BestOfGallery() {
           &#8249;
         </button>
         <div className="lightbox-frame" onClick={(e) => e.stopPropagation()}>
-          {active && <Image src={active.src} alt={active.alt} width={1200} height={1600} />}
+          {active && <Image src={withBasePath(active.src)} alt={active.alt} width={1200} height={1600} />}
         </div>
         <button
           className="bestof-nav bestof-nav-next"

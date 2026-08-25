@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { subscribeHeroProgress } from '@/lib/hero-progress';
+import { withBasePath } from '@/lib/utils';
 
 interface HeroPhoto {
   src: string;
@@ -91,7 +92,7 @@ export function PhotoHero({
           <div ref={capsuleARef} className="hero-capsule-a" style={{ opacity: 0 }}>
             <div className="hero-capsule">
               <Image
-                src={photos[0].src}
+                src={withBasePath(photos[0].src)}
                 alt={photos[0].alt}
                 fill
                 sizes="(max-width: 860px) 60vw, 320px"
@@ -104,7 +105,7 @@ export function PhotoHero({
           <div ref={capsuleBRef} className="hero-capsule-b" style={{ opacity: 0 }}>
             <div className="hero-capsule">
               <Image
-                src={photos[1].src}
+                src={withBasePath(photos[1].src)}
                 alt={photos[1].alt}
                 fill
                 sizes="(max-width: 860px) 60vw, 320px"

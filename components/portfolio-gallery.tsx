@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/reveal';
+import { withBasePath } from '@/lib/utils';
 
 interface Photo {
   src: string;
@@ -62,7 +63,7 @@ export function PortfolioGallery() {
       <Reveal stagger className="frame-grid">
         {PHOTOS.map((photo) => (
           <div className="frame" key={photo.src} onClick={() => setActive(photo)}>
-            <Image src={photo.src} alt={photo.alt} width={800} height={1200} loading="lazy" />
+            <Image src={withBasePath(photo.src)} alt={photo.alt} width={800} height={1200} loading="lazy" />
           </div>
         ))}
       </Reveal>
@@ -79,7 +80,7 @@ export function PortfolioGallery() {
           &times;
         </button>
         <div className="lightbox-frame" onClick={(e) => e.stopPropagation()}>
-          {active && <Image src={active.src} alt={active.alt} width={1200} height={1600} />}
+          {active && <Image src={withBasePath(active.src)} alt={active.alt} width={1200} height={1600} />}
         </div>
       </div>
     </>
