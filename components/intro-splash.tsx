@@ -139,7 +139,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
     };
 
     const handleScroll = () => {
-      if (!fullyExpandedRef.current) window.scrollTo(0, 0);
+      if (!fullyExpandedRef.current) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     };
 
     window.addEventListener('wheel', handleWheel as unknown as EventListener, { passive: false });
@@ -159,7 +159,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (fullyExpanded) {
-      const t = setTimeout(() => setDismissed(true), 200);
+      const t = setTimeout(() => setDismissed(true), 450);
       return () => clearTimeout(t);
     }
   }, [fullyExpanded]);

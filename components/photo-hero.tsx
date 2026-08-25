@@ -12,17 +12,17 @@ interface HeroPhoto {
 
 const copyContainer = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+  show: { transition: { staggerChildren: 0.2, delayChildren: 0.1 } },
 };
 
 const visualContainer = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.16, delayChildren: 0.4 } },
+  show: { transition: { staggerChildren: 0.24, delayChildren: 0.6 } },
 };
 
 const item = {
   hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } },
 };
 
 export function PhotoHero({
