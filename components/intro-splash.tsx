@@ -1,10 +1,7 @@
 'use client';
 
 import {
-  createContext,
-  useContext,
   useEffect,
-  useMemo,
   useRef,
   useState,
   ReactNode,
@@ -12,14 +9,7 @@ import {
   WheelEvent,
 } from 'react';
 import Image from 'next/image';
-
-type ProgressListener = (revealProgress: number) => void;
-interface HeroProgressApi {
-  subscribe: (fn: ProgressListener) => () => void;
-}
-
-const HeroProgressContext = createContext<HeroProgressApi | null>(null);
-export const useHeroProgress = () => useContext(HeroProgressContext);
+import { emitHeroProgress } from '@/lib/hero-progress';
 
 export function IntroSplash({ children }: { children: ReactNode }) {
   const [fullyExpanded, setFullyExpanded] = useState(false);
@@ -31,9 +21,8 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   const lastTickTime = useRef<number | null>(null);
   const touchStartY = useRef(0);
   const fullyExpandedRef = useRef(false);
-  const listenersRef = useRef<Set<ProgressListener>>(new Set());
 
-  const MIN_JOURNEY_MS = 1800;
+  const MIN_JOURNEY_MS = 2600;
 
   const bgRef = useRef<HTMLImageElement | null>(null);
   const line1Ref = useRef<HTMLSpanElement | null>(null);
@@ -43,18 +32,6 @@ export function IntroSplash({ children }: { children: ReactNode }) {
 
   const STAGE_FADE_START = 0.48;
   const STAGE_FADE_END = 0.98;
-
-  const progressApi = useMemo<HeroProgressApi>(
-    () => ({
-      subscribe: (fn: ProgressListener) => {
-        listenersRef.current.add(fn);
-        return () => {
-          listenersRef.current.delete(fn);
-        };
-      },
-    }),
-    []
-  );
 
   const applyStyles = (p: number) => {
     if (bgRef.current) {
@@ -78,7 +55,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
       stageRef.current.style.opacity = String(1 - fadeP);
       stageRef.current.style.pointerEvents = fadeP >= 1 ? 'none' : 'auto';
     }
-    listenersRef.current.forEach((fn) => fn(fadeP));
+    emitHeroProgress(fadeP);
   };
 
   useEffect(() => {
@@ -191,7 +168,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   }, [fullyExpanded]);
 
   return (
-    <HeroProgressContext.Provider value={progressApi}>
+    <>
       <section ref={stageRef} className="intro-splash-stage" aria-hidden={dismissed}>
         <Image
           ref={bgRef}
@@ -219,6 +196,6 @@ export function IntroSplash({ children }: { children: ReactNode }) {
       </section>
 
       {children}
-    </HeroProgressContext.Provider>
+    </>
   );
 }

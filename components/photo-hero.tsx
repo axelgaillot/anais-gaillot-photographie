@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useHeroProgress } from '@/components/intro-splash';
+import { subscribeHeroProgress } from '@/lib/hero-progress';
 
 interface HeroPhoto {
   src: string;
@@ -15,18 +15,18 @@ type Range = [number, number];
 function applyReveal(el: HTMLElement | null, p: number, [start, end]: Range) {
   if (!el) return;
   const local = Math.max(0, Math.min((p - start) / (end - start), 1));
-  const eased = 1 - Math.pow(1 - local, 3);
+  const eased = 1 - Math.pow(1 - local, 4);
   el.style.opacity = String(eased);
-  el.style.transform = `translateY(${(1 - eased) * 18}px)`;
+  el.style.transform = `translateY(${(1 - eased) * 26}px)`;
 }
 
 const RANGES: Record<'eyebrow' | 'title' | 'subtitle' | 'link' | 'capsuleA' | 'capsuleB', Range> = {
-  eyebrow: [0, 0.3],
-  title: [0.08, 0.38],
-  subtitle: [0.16, 0.46],
-  link: [0.24, 0.54],
-  capsuleA: [0.4, 0.78],
-  capsuleB: [0.55, 0.95],
+  eyebrow: [0, 0.35],
+  title: [0.1, 0.45],
+  subtitle: [0.2, 0.55],
+  link: [0.3, 0.65],
+  capsuleA: [0.35, 0.8],
+  capsuleB: [0.5, 1],
 };
 
 export function PhotoHero({
@@ -42,8 +42,6 @@ export function PhotoHero({
   photos: [HeroPhoto, HeroPhoto];
   sky?: boolean;
 }) {
-  const progressApi = useHeroProgress();
-
   const eyebrowRef = useRef<HTMLParagraphElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const subtitleRef = useRef<HTMLParagraphElement | null>(null);
@@ -52,19 +50,7 @@ export function PhotoHero({
   const capsuleBRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const allRefs = [eyebrowRef, titleRef, subtitleRef, linkRef, capsuleARef, capsuleBRef];
-
-    if (!progressApi) {
-      allRefs.forEach((ref) => {
-        if (ref.current) {
-          ref.current.style.opacity = '1';
-          ref.current.style.transform = 'none';
-        }
-      });
-      return;
-    }
-
-    return progressApi.subscribe((p) => {
+    return subscribeHeroProgress((p) => {
       applyReveal(eyebrowRef.current, p, RANGES.eyebrow);
       applyReveal(titleRef.current, p, RANGES.title);
       applyReveal(subtitleRef.current, p, RANGES.subtitle);
@@ -72,7 +58,7 @@ export function PhotoHero({
       applyReveal(capsuleARef.current, p, RANGES.capsuleA);
       applyReveal(capsuleBRef.current, p, RANGES.capsuleB);
     });
-  }, [progressApi]);
+  }, []);
 
   return (
     <section className={`hero-photo ${sky ? 'hero-photo-sky' : ''}`}>

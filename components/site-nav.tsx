@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { subscribeHeroProgress } from '@/lib/hero-progress';
 
 const NAV_LINKS = [
   { href: '/portfolio', label: 'Portfolio' },
@@ -13,9 +14,21 @@ const NAV_LINKS = [
 
 export function SiteNav() {
   const [open, setOpen] = useState(false);
+  const navRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    return subscribeHeroProgress((p) => {
+      const local = Math.max(0, Math.min(p / 0.4, 1));
+      const eased = 1 - Math.pow(1 - local, 4);
+      if (navRef.current) {
+        navRef.current.style.opacity = String(eased);
+        navRef.current.style.transform = `translateY(${(1 - eased) * -12}px)`;
+      }
+    });
+  }, []);
 
   return (
-    <nav className="nav">
+    <nav ref={navRef} className="nav">
       <Link href="/" className="brand" onClick={() => setOpen(false)}>
         <motion.span whileTap={{ scale: 0.9 }} style={{ display: 'inline-block' }}>
           Kodascreen
