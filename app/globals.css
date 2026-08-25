@@ -353,6 +353,11 @@ section {
   object-position: center;
   transition: none;
 }
+@media (max-aspect-ratio: 4/5) {
+  .intro-splash-bg {
+    object-fit: contain;
+  }
+}
 .intro-splash-copy {
   position: absolute;
   top: 50%;
