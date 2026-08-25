@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
 :root {
   --ink: #2e2418;
   --ink-soft: #6b5842;
@@ -102,6 +110,11 @@ h3 {
 }
 
 /* ---------- Nav ---------- */
+html.intro-active,
+body.intro-active {
+  overflow: hidden;
+  height: 100%;
+}
 body.intro-active .nav {
   opacity: 0;
   pointer-events: none;

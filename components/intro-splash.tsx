@@ -44,12 +44,19 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
+    document.documentElement.classList.add('intro-active');
     document.body.classList.add('intro-active');
-    return () => document.body.classList.remove('intro-active');
+    return () => {
+      document.documentElement.classList.remove('intro-active');
+      document.body.classList.remove('intro-active');
+    };
   }, []);
 
   useEffect(() => {
-    if (dismissed) document.body.classList.remove('intro-active');
+    if (dismissed) {
+      document.documentElement.classList.remove('intro-active');
+      document.body.classList.remove('intro-active');
+    }
   }, [dismissed]);
 
   useEffect(() => {
@@ -87,6 +94,9 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (dismissed) return;
 
+    // Une seule interaction, peu importe laquelle (molette, clic, touche,
+    // toucher), lance directement l'entree complete sur le site. Le rythme
+    // reste doux grace au plafond de vitesse applique dans tick().
     const handleWheel = (e: WheelEvent) => {
       if (fullyExpandedRef.current && e.deltaY < 0 && window.scrollY <= 5) {
         fullyExpandedRef.current = false;
@@ -95,14 +105,10 @@ export function IntroSplash({ children }: { children: ReactNode }) {
         e.preventDefault();
       } else if (!fullyExpandedRef.current) {
         e.preventDefault();
-        const cappedDelta = Math.max(Math.min(e.deltaY, 100), -100);
-        targetProgress.current = Math.min(Math.max(targetProgress.current + cappedDelta * 0.0022, 0), 1);
+        targetProgress.current = 1;
       }
     };
 
-    // Sur mobile, le suivi fin du glissement est peu fiable (tap, flick,
-    // scroll natif qui prend le dessus). N'importe quel toucher lance donc
-    // directement l'entree complete sur le site.
     const handleTouchStart = (e: TouchEvent) => {
       if (fullyExpandedRef.current) return;
       e.preventDefault();
@@ -115,6 +121,17 @@ export function IntroSplash({ children }: { children: ReactNode }) {
 
     const handleTouchEnd = () => {};
 
+    const handleClick = () => {
+      if (!fullyExpandedRef.current) targetProgress.current = 1;
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!fullyExpandedRef.current) {
+        e.preventDefault();
+        targetProgress.current = 1;
+      }
+    };
+
     const handleScroll = () => {
       if (!fullyExpandedRef.current) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     };
@@ -124,10 +141,14 @@ export function IntroSplash({ children }: { children: ReactNode }) {
     window.addEventListener('touchstart', handleTouchStart as unknown as EventListener, { passive: false });
     window.addEventListener('touchmove', handleTouchMove as unknown as EventListener, { passive: false });
     window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('click', handleClick);
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       window.removeEventListener('wheel', handleWheel as unknown as EventListener);
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('click', handleClick);
+      window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('touchstart', handleTouchStart as unknown as EventListener);
       window.removeEventListener('touchmove', handleTouchMove as unknown as EventListener);
       window.removeEventListener('touchend', handleTouchEnd);

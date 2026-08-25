@@ -77,28 +77,32 @@ export function BestOfGallery() {
     const strip = stripRef.current;
     if (!strip || !('IntersectionObserver' in window)) return;
 
-    const animateScrollTo = (target: number, duration: number) => {
-      const start = strip.scrollLeft;
-      const change = target - start;
+    const animateScrollTo = (from: number, target: number, duration: number) => {
+      const change = target - from;
       const startTime = performance.now();
       const step = (now: number) => {
         const t = Math.min((now - startTime) / duration, 1);
         const eased = 1 - Math.pow(1 - t, 3);
-        strip.scrollLeft = start + change * eased;
+        strip.scrollLeft = from + change * eased;
         if (t < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
     };
 
-    let hasPeeked = false;
+    let isPeeking = false;
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasPeeked) {
-            hasPeeked = true;
-            io.unobserve(entry.target);
-            animateScrollTo(240, 1600);
-            setTimeout(() => animateScrollTo(0, 1600), 2200);
+          if (entry.isIntersecting && !isPeeking && !isDraggingRef.current) {
+            isPeeking = true;
+            const restPos = strip.scrollLeft;
+            animateScrollTo(restPos, restPos + 240, 2000);
+            setTimeout(() => {
+              animateScrollTo(restPos + 240, restPos, 2000);
+              setTimeout(() => {
+                isPeeking = false;
+              }, 2000);
+            }, 2700);
           }
         });
       },
