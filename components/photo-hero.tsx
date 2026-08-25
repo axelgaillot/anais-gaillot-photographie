@@ -3,11 +3,27 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { useHeroReveal } from '@/components/intro-splash';
 
 interface HeroPhoto {
   src: string;
   alt: string;
 }
+
+const copyContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+};
+
+const visualContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.16, delayChildren: 0.4 } },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } },
+};
 
 export function PhotoHero({
   eyebrow,
@@ -22,6 +38,9 @@ export function PhotoHero({
   photos: [HeroPhoto, HeroPhoto];
   sky?: boolean;
 }) {
+  const reveal = useHeroReveal();
+  const revealState = reveal ? 'show' : 'hidden';
+
   return (
     <section className={`hero-photo ${sky ? 'hero-photo-sky' : ''}`}>
       {sky && (
@@ -32,30 +51,36 @@ export function PhotoHero({
       <div className="wrap hero-photo-grid">
         <motion.div
           className="hero-photo-copy"
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          variants={copyContainer}
+          initial="hidden"
+          animate={revealState}
         >
-          <p className="hero-photo-eyebrow">{eyebrow}</p>
-          <h1>{title}</h1>
-          <p className="hero-photo-sub">{subtitle}</p>
-          <Link href="/portfolio" className="dash-link">
-            <span className="dash" /> Voir mon portfolio
-          </Link>
+          <motion.p variants={item} className="hero-photo-eyebrow">
+            {eyebrow}
+          </motion.p>
+          <motion.h1 variants={item}>{title}</motion.h1>
+          <motion.p variants={item} className="hero-photo-sub">
+            {subtitle}
+          </motion.p>
+          <motion.div variants={item} style={{ display: 'inline-block' }}>
+            <Link href="/portfolio" className="dash-link">
+              <span className="dash" /> Voir mon portfolio
+            </Link>
+          </motion.div>
         </motion.div>
 
         <motion.div
           className="hero-photo-visual"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          variants={visualContainer}
+          initial="hidden"
+          animate={revealState}
         >
-          <div className="hero-capsule hero-capsule-a">
+          <motion.div variants={item} className="hero-capsule hero-capsule-a">
             <Image src={photos[0].src} alt={photos[0].alt} fill sizes="(max-width: 860px) 60vw, 320px" priority className="object-cover" style={{ objectPosition: '50% 22%' }} />
-          </div>
-          <div className="hero-capsule hero-capsule-b">
+          </motion.div>
+          <motion.div variants={item} className="hero-capsule hero-capsule-b">
             <Image src={photos[1].src} alt={photos[1].alt} fill sizes="(max-width: 860px) 60vw, 320px" priority className="object-cover" style={{ objectPosition: '50% 22%' }} />
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
