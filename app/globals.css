@@ -45,9 +45,10 @@ body {
     #8fb2dc 0%,
     #cfe0f0 8%,
     #eaf2fa 20%,
-    #ffffff 48%,
-    #eaf2fa 78%,
-    #d6e6f5 100%
+    #ffffff 46%,
+    #eaf2fa 68%,
+    #d6e6f5 84%,
+    #a9c8e8 100%
   );
   color: var(--ink);
   font-size: 16px;
@@ -121,8 +122,7 @@ body.intro-active .nav {
   justify-content: space-between;
   gap: 1rem;
   padding: 0 clamp(1.25rem, 4vw, 2.75rem);
-  background: color-mix(in srgb, var(--paper) 88%, transparent);
-  backdrop-filter: blur(10px);
+  background: transparent;
 }
 .brand {
   font-family: var(--font-script);
@@ -351,7 +351,7 @@ section {
   overflow: hidden;
 }
 .intro-splash-bg {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   transition: none;
 }
