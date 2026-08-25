@@ -21,7 +21,7 @@
   --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
   --nav-h: 68px;
 
-  --navy-deep: #1e3c68;
+  --navy-deep: #2c5488;
   --on-navy: #f3f7fc;
   --on-navy-soft: rgba(243, 247, 252, 0.7);
   --on-navy-line: rgba(243, 247, 252, 0.16);
@@ -938,9 +938,9 @@ form {
   color: var(--on-navy);
   background: linear-gradient(
     180deg,
-    rgba(30, 60, 104, 0) 0,
-    rgba(30, 60, 104, 0.35) 220px,
-    rgba(30, 60, 104, 0.75) 420px,
+    rgba(44, 84, 136, 0) 0,
+    rgba(44, 84, 136, 0.35) 220px,
+    rgba(44, 84, 136, 0.75) 420px,
     var(--navy-deep) 680px,
     var(--navy-deep) 100%
   );
@@ -958,39 +958,54 @@ form {
 
 .bestof-strip-wrap {
   overflow: hidden;
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 .bestof-strip {
   display: flex;
-  gap: clamp(0.7rem, 1.6vw, 1.1rem);
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 1.8rem);
   overflow-x: auto;
-  scroll-snap-type: x proximity;
-  padding-bottom: 0.5rem;
+  padding: clamp(1.5rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 2.75rem) clamp(2rem, 5vw, 3.25rem);
   margin: 0 calc(-1 * clamp(1.25rem, 4vw, 2.75rem));
-  padding-left: clamp(1.25rem, 4vw, 2.75rem);
-  padding-right: clamp(1.25rem, 4vw, 2.75rem);
-  scrollbar-width: thin;
   cursor: grab;
   user-select: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.bestof-strip::-webkit-scrollbar {
+  display: none;
 }
 .bestof-strip.dragging {
   cursor: grabbing;
-  scroll-snap-type: none;
 }
 .bestof-item {
   flex: 0 0 auto;
-  width: clamp(150px, 20vw, 220px);
-  aspect-ratio: 3 / 4;
-  border-radius: 4px;
+  height: clamp(260px, 34vw, 420px);
+  width: auto;
+  border-radius: 6px;
   overflow: hidden;
   border: none;
   padding: 0;
   cursor: pointer;
-  scroll-snap-align: start;
   background: none;
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s var(--ease-premium),
+    transform 0.7s var(--ease-premium);
+}
+.bestof-strip-wrap.in-view .bestof-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+.bestof-strip-wrap.in-view .bestof-item:hover {
+  transform: translateY(-6px);
 }
 .bestof-item img {
-  width: 100%;
   height: 100%;
+  width: auto;
   object-fit: cover;
   display: block;
   transition: transform 0.6s var(--ease-premium);

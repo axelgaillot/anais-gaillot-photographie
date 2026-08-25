@@ -25,6 +25,11 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   const line1Ref = useRef<HTMLSpanElement | null>(null);
   const line2Ref = useRef<HTMLSpanElement | null>(null);
   const hintRef = useRef<HTMLParagraphElement | null>(null);
+  const stageRef = useRef<HTMLElement | null>(null);
+  const showContentRef = useRef(false);
+
+  const STAGE_FADE_START = 0.5;
+  const STAGE_FADE_END = 0.88;
 
   const applyStyles = (p: number) => {
     if (bgRef.current) {
@@ -42,6 +47,12 @@ export function IntroSplash({ children }: { children: ReactNode }) {
       line2Ref.current.style.transform = `translateX(${exitP * 65}vw)`;
     }
     if (hintRef.current) hintRef.current.style.opacity = String(Math.max(0.85 - p * 3, 0));
+
+    const fadeP = Math.max(0, Math.min((p - STAGE_FADE_START) / (STAGE_FADE_END - STAGE_FADE_START), 1));
+    if (stageRef.current) {
+      stageRef.current.style.opacity = String(1 - fadeP);
+      stageRef.current.style.pointerEvents = fadeP >= 1 ? 'none' : 'auto';
+    }
   };
 
   useEffect(() => {
@@ -62,10 +73,14 @@ export function IntroSplash({ children }: { children: ReactNode }) {
       if (Math.abs(diff) < 0.0005) displayProgress.current = targetProgress.current;
       applyStyles(displayProgress.current);
 
-      if (displayProgress.current >= 0.999 && !fullyExpandedRef.current) {
+      if (displayProgress.current >= STAGE_FADE_START && !showContentRef.current) {
+        showContentRef.current = true;
+        setShowContent(true);
+      }
+
+      if (displayProgress.current >= STAGE_FADE_END && !fullyExpandedRef.current) {
         fullyExpandedRef.current = true;
         setFullyExpanded(true);
-        setShowContent(true);
       }
 
       rafId.current = requestAnimationFrame(tick);
@@ -139,7 +154,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (fullyExpanded) {
-      const t = setTimeout(() => setDismissed(true), 500);
+      const t = setTimeout(() => setDismissed(true), 200);
       return () => clearTimeout(t);
     }
   }, [fullyExpanded]);
@@ -148,10 +163,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
 
   return (
     <div className="intro-splash">
-      <section
-        className="intro-splash-stage"
-        style={{ opacity: fullyExpanded ? 0 : 1, transition: 'opacity 0.4s var(--ease-premium)' }}
-      >
+      <section ref={stageRef} className="intro-splash-stage">
         <Image
           ref={bgRef}
           src="/images/intro-welcome.jpg"

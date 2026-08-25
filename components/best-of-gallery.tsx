@@ -102,6 +102,7 @@ export function BestOfGallery() {
               key={photo.src}
               type="button"
               className="bestof-item"
+              style={{ transitionDelay: `${Math.min(i * 70, 700)}ms` }}
               onClick={() => handleItemClick(i)}
               aria-label={photo.alt}
             >
