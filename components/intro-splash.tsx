@@ -4,6 +4,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
   ReactNode,
@@ -12,11 +13,15 @@ import {
 } from 'react';
 import Image from 'next/image';
 
-export const HeroRevealContext = createContext(true);
-export const useHeroReveal = () => useContext(HeroRevealContext);
+type ProgressListener = (revealProgress: number) => void;
+interface HeroProgressApi {
+  subscribe: (fn: ProgressListener) => () => void;
+}
+
+const HeroProgressContext = createContext<HeroProgressApi | null>(null);
+export const useHeroProgress = () => useContext(HeroProgressContext);
 
 export function IntroSplash({ children }: { children: ReactNode }) {
-  const [showContent, setShowContent] = useState(false);
   const [fullyExpanded, setFullyExpanded] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 
@@ -25,16 +30,28 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   const rafId = useRef<number | null>(null);
   const touchStartY = useRef(0);
   const fullyExpandedRef = useRef(false);
+  const listenersRef = useRef<Set<ProgressListener>>(new Set());
 
   const bgRef = useRef<HTMLImageElement | null>(null);
   const line1Ref = useRef<HTMLSpanElement | null>(null);
   const line2Ref = useRef<HTMLSpanElement | null>(null);
   const hintRef = useRef<HTMLParagraphElement | null>(null);
   const stageRef = useRef<HTMLElement | null>(null);
-  const showContentRef = useRef(false);
 
   const STAGE_FADE_START = 0.58;
   const STAGE_FADE_END = 0.98;
+
+  const progressApi = useMemo<HeroProgressApi>(
+    () => ({
+      subscribe: (fn: ProgressListener) => {
+        listenersRef.current.add(fn);
+        return () => {
+          listenersRef.current.delete(fn);
+        };
+      },
+    }),
+    []
+  );
 
   const applyStyles = (p: number) => {
     if (bgRef.current) {
@@ -58,6 +75,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
       stageRef.current.style.opacity = String(1 - fadeP);
       stageRef.current.style.pointerEvents = fadeP >= 1 ? 'none' : 'auto';
     }
+    listenersRef.current.forEach((fn) => fn(fadeP));
   };
 
   useEffect(() => {
@@ -77,11 +95,6 @@ export function IntroSplash({ children }: { children: ReactNode }) {
       displayProgress.current += diff * 0.14;
       if (Math.abs(diff) < 0.0005) displayProgress.current = targetProgress.current;
       applyStyles(displayProgress.current);
-
-      if (displayProgress.current >= STAGE_FADE_START && !showContentRef.current) {
-        showContentRef.current = true;
-        setShowContent(true);
-      }
 
       if (displayProgress.current >= STAGE_FADE_END && !fullyExpandedRef.current) {
         fullyExpandedRef.current = true;
@@ -165,7 +178,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   }, [fullyExpanded]);
 
   return (
-    <HeroRevealContext.Provider value={showContent}>
+    <HeroProgressContext.Provider value={progressApi}>
       <section ref={stageRef} className="intro-splash-stage" aria-hidden={dismissed}>
         <Image
           ref={bgRef}
@@ -193,6 +206,6 @@ export function IntroSplash({ children }: { children: ReactNode }) {
       </section>
 
       {children}
-    </HeroRevealContext.Provider>
+    </HeroProgressContext.Provider>
   );
 }
