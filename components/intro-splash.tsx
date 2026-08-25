@@ -11,7 +11,6 @@ import {
 import Image from 'next/image';
 
 export function IntroSplash({ children }: { children: ReactNode }) {
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [showContent, setShowContent] = useState(false);
   const [fullyExpanded, setFullyExpanded] = useState(false);
   const [dismissed, setDismissed] = useState(false);
@@ -21,6 +20,29 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   const rafId = useRef<number | null>(null);
   const touchStartY = useRef(0);
   const fullyExpandedRef = useRef(false);
+
+  const bgRef = useRef<HTMLImageElement | null>(null);
+  const line1Ref = useRef<HTMLSpanElement | null>(null);
+  const line2Ref = useRef<HTMLSpanElement | null>(null);
+  const hintRef = useRef<HTMLParagraphElement | null>(null);
+
+  const applyStyles = (p: number) => {
+    if (bgRef.current) {
+      bgRef.current.style.filter = `blur(${p * 14}px)`;
+      bgRef.current.style.transform = `scale(${1 + p * 0.18})`;
+    }
+    const exitP = Math.min(p * 1.7, 1);
+    const exitOpacity = String(Math.max(1 - exitP * 1.15, 0));
+    if (line1Ref.current) {
+      line1Ref.current.style.opacity = exitOpacity;
+      line1Ref.current.style.transform = `translateX(${-exitP * 65}vw)`;
+    }
+    if (line2Ref.current) {
+      line2Ref.current.style.opacity = exitOpacity;
+      line2Ref.current.style.transform = `translateX(${exitP * 65}vw)`;
+    }
+    if (hintRef.current) hintRef.current.style.opacity = String(Math.max(0.85 - p * 3, 0));
+  };
 
   useEffect(() => {
     document.body.classList.add('intro-active');
@@ -38,7 +60,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
       const diff = targetProgress.current - displayProgress.current;
       displayProgress.current += diff * 0.14;
       if (Math.abs(diff) < 0.0005) displayProgress.current = targetProgress.current;
-      setScrollProgress(displayProgress.current);
+      applyStyles(displayProgress.current);
 
       if (displayProgress.current >= 0.999 && !fullyExpandedRef.current) {
         fullyExpandedRef.current = true;
@@ -66,7 +88,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
       } else if (!fullyExpandedRef.current) {
         e.preventDefault();
         const cappedDelta = Math.max(Math.min(e.deltaY, 100), -100);
-        targetProgress.current = Math.min(Math.max(targetProgress.current + cappedDelta * 0.0009, 0), 1);
+        targetProgress.current = Math.min(Math.max(targetProgress.current + cappedDelta * 0.0022, 0), 1);
       }
     };
 
@@ -86,7 +108,7 @@ export function IntroSplash({ children }: { children: ReactNode }) {
         e.preventDefault();
       } else if (!fullyExpandedRef.current) {
         e.preventDefault();
-        const scrollFactor = deltaY < 0 ? 0.0035 : 0.0028;
+        const scrollFactor = deltaY < 0 ? 0.008 : 0.0065;
         targetProgress.current = Math.min(Math.max(targetProgress.current + deltaY * scrollFactor, 0), 1);
         touchStartY.current = touchY;
       }
@@ -117,59 +139,45 @@ export function IntroSplash({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (fullyExpanded) {
-      const t = setTimeout(() => setDismissed(true), 900);
+      const t = setTimeout(() => setDismissed(true), 500);
       return () => clearTimeout(t);
     }
   }, [fullyExpanded]);
 
   if (dismissed) return <>{children}</>;
 
-  // Diving into the image: it scales up well past the viewport while the
-  // welcome text stretches apart and fades, then the site fades in beneath.
-  const bgScale = 1 + scrollProgress * 2.4;
-  const bgBlur = scrollProgress * 6;
-  const textShift = scrollProgress * 70;
-  const textOpacity = Math.max(1 - scrollProgress * 1.5, 0);
-
   return (
     <div className="intro-splash">
       <section
         className="intro-splash-stage"
-        style={{ opacity: fullyExpanded ? 0 : 1, transition: 'opacity 0.6s var(--ease-premium)' }}
+        style={{ opacity: fullyExpanded ? 0 : 1, transition: 'opacity 0.4s var(--ease-premium)' }}
       >
         <Image
+          ref={bgRef}
           src="/images/intro-welcome.jpg"
           alt="Bienvenue dans l'univers de Kodascreen"
           fill
           priority
           className="intro-splash-bg"
-          style={{
-            filter: `blur(${bgBlur}px)`,
-            transform: `scale(${bgScale})`,
-          }}
         />
 
-        <div className="intro-splash-copy">
-          <span
-            className="intro-splash-copy-part"
-            style={{ transform: `translateX(-${textShift}vw)`, opacity: textOpacity }}
-          >
-            Bienvenue dans l&apos;univers
-          </span>
-          <span
-            className="intro-splash-copy-part"
-            style={{ transform: `translateX(${textShift}vw)`, opacity: textOpacity }}
-          >
-            de Kodascreen
-          </span>
+        <div className="intro-splash-copy intro-splash-copy-enter">
+          <div className="intro-splash-copy-inner">
+            <span ref={line1Ref} className="intro-splash-copy-part">
+              Bienvenue dans l&apos;univers
+            </span>
+            <span ref={line2Ref} className="intro-splash-copy-part intro-splash-copy-part-accent">
+              de Kodascreen
+            </span>
+          </div>
         </div>
 
-        <p className="intro-splash-hint" style={{ opacity: 0.85 - scrollProgress * 2 }}>
+        <p ref={hintRef} className="intro-splash-hint">
           Faites défiler pour entrer
         </p>
       </section>
 
-      <div style={{ opacity: showContent ? 1 : 0, transition: 'opacity 0.9s var(--ease-premium)' }}>
+      <div style={{ opacity: showContent ? 1 : 0, transition: 'opacity 0.5s var(--ease-premium)' }}>
         {children}
       </div>
     </div>
