@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Nunito_Sans, Kaushan_Script } from 'next/font/google';
+import { Cormorant_Garamond, Nunito_Sans, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { SiteNav } from '@/components/site-nav';
 import { SiteFooter } from '@/components/site-footer';
@@ -17,9 +17,10 @@ const body = Nunito_Sans({
   variable: '--font-body',
 });
 
-const script = Kaushan_Script({
+const script = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400'],
+  weight: ['600', '700'],
+  style: ['italic'],
   variable: '--font-script',
 });
 

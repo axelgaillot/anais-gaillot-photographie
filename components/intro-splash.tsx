@@ -19,10 +19,9 @@ export function IntroSplash({ children }: { children: ReactNode }) {
   const displayProgress = useRef(0);
   const rafId = useRef<number | null>(null);
   const lastTickTime = useRef<number | null>(null);
-  const touchStartY = useRef(0);
   const fullyExpandedRef = useRef(false);
 
-  const MIN_JOURNEY_MS = 2600;
+  const MIN_JOURNEY_MS = 3400;
 
   const bgRef = useRef<HTMLImageElement | null>(null);
   const stageRef = useRef<HTMLElement | null>(null);
@@ -101,31 +100,20 @@ export function IntroSplash({ children }: { children: ReactNode }) {
       }
     };
 
+    // Sur mobile, le suivi fin du glissement est peu fiable (tap, flick,
+    // scroll natif qui prend le dessus). N'importe quel toucher lance donc
+    // directement l'entree complete sur le site.
     const handleTouchStart = (e: TouchEvent) => {
-      touchStartY.current = e.touches[0].clientY;
+      if (fullyExpandedRef.current) return;
+      e.preventDefault();
+      targetProgress.current = 1;
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (!touchStartY.current) return;
-      const touchY = e.touches[0].clientY;
-      const deltaY = touchStartY.current - touchY;
-
-      if (fullyExpandedRef.current && deltaY < -20 && window.scrollY <= 5) {
-        fullyExpandedRef.current = false;
-        setFullyExpanded(false);
-        targetProgress.current = 0.9;
-        e.preventDefault();
-      } else if (!fullyExpandedRef.current) {
-        e.preventDefault();
-        const scrollFactor = deltaY < 0 ? 0.008 : 0.0065;
-        targetProgress.current = Math.min(Math.max(targetProgress.current + deltaY * scrollFactor, 0), 1);
-        touchStartY.current = touchY;
-      }
+      if (!fullyExpandedRef.current) e.preventDefault();
     };
 
-    const handleTouchEnd = () => {
-      touchStartY.current = 0;
-    };
+    const handleTouchEnd = () => {};
 
     const handleScroll = () => {
       if (!fullyExpandedRef.current) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });

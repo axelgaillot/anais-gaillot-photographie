@@ -18,7 +18,7 @@ export function SiteNav() {
 
   useEffect(() => {
     return subscribeHeroProgress((p) => {
-      const local = Math.max(0, Math.min(p / 0.4, 1));
+      const local = Math.max(0, Math.min((p - 0.78) / (1 - 0.78), 1));
       const eased = 1 - Math.pow(1 - local, 4);
       if (navRef.current) {
         navRef.current.style.opacity = String(eased);

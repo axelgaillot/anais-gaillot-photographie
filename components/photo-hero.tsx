@@ -20,13 +20,15 @@ function applyReveal(el: HTMLElement | null, p: number, [start, end]: Range) {
   el.style.transform = `translateY(${(1 - eased) * 26}px)`;
 }
 
+// Le contenu du hero se joue dans les 3/4 de la fenetre de reveal ; le
+// dernier quart est reserve a la nav, qui apparait en dernier (voir site-nav.tsx).
 const RANGES: Record<'eyebrow' | 'title' | 'subtitle' | 'link' | 'capsuleA' | 'capsuleB', Range> = {
-  eyebrow: [0, 0.35],
-  title: [0.1, 0.45],
-  subtitle: [0.2, 0.55],
-  link: [0.3, 0.65],
-  capsuleA: [0.35, 0.8],
-  capsuleB: [0.5, 1],
+  eyebrow: [0, 0.26],
+  title: [0.075, 0.34],
+  subtitle: [0.15, 0.41],
+  link: [0.225, 0.49],
+  capsuleA: [0.26, 0.6],
+  capsuleB: [0.375, 0.75],
 };
 
 export function PhotoHero({
